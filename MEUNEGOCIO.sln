@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPNET_Core_2_1", "ASPNET_Core_2_1\ASPNET_Core_2_1.csproj", "{7EAD71BA-193B-4B5E-A287-F4B7E35DB774}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEUNEGOCIO", "ASPNET_Core_2_1\MEUNEGOCIO.csproj", "{7EAD71BA-193B-4B5E-A287-F4B7E35DB774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
