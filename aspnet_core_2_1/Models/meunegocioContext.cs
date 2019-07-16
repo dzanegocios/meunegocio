@@ -50,7 +50,6 @@ namespace ASPNET_Core_2_1.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Server=LAPTOP-CUMLKL08\\SQLEXPRESS;Database=meu-negocio;Trusted_Connection=True;");
             }
         }

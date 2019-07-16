@@ -20,6 +20,11 @@ namespace ASPNET_Core_2_1.Controllers
 
             return View();
         }
+        public IActionResult Teste()
+        {
+
+            return View();
+        }
 
     }
 }

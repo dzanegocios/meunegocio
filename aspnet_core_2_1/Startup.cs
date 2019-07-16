@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using ASPNET_Core_2_1.Models;
 
 namespace ASPNET_Core_2_1
 {
@@ -33,6 +35,8 @@ namespace ASPNET_Core_2_1
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            var connection = "Server=LAPTOP-CUMLKL08\\SQLEXPRESS;Database=meu-negocio;Trusted_Connection=True;";
+            services.AddDbContext<meunegocioContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
