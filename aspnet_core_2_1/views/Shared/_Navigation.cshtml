@@ -15,11 +15,42 @@
                     IN+
                 </div>
             </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Main")">
-                <a href="@Url.Action("Main", "Home")"><i class="fa fa-diamond"></i> <span class="nav-label">Main</span> <span class="label label-primary float-right">Main</span></a>
+            <li class="@Html.IsSelected(controller: "Home")">
+                <a href="@Url.Action("Main", "Home")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">1 Negócio</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Dashboards", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Main")"><a href="@Url.Action("Main", "Home")">1.1 Filosofia</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.2 Modelo</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.3 Área</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.4 Setor</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.5 Cargo</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.6 Pessoas</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.7 Processo</a></li>
+                </ul>
             </li>
-            <li class="@Html.IsSelected(controller: "Home", action: "Minor")">
-                <a href="@Url.Action("Minor", "Home")"><i class="fa fa-server"></i> <span class="nav-label">Minor</span></a>
+            <li class="@Html.IsSelected(controller: "ABC")">
+                <a href="@Url.Action("Main", "ABC")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">2 Planejamento</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Dashboards", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Main")"><a href="@Url.Action("Main", "ABC")">2.1 Diagnóstico</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">2.2 Mapa Estratégico</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">2.3 Mapa Estratégico</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "ABC")">
+                <a href="@Url.Action("Main", "ABC")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">3 Execução</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Dashboards", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "Main")"><a href="@Url.Action("Main", "ABC")">3.1 Plano de Ação</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">3.2 Plano de Ação Kanban</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">3.3 Tarefa</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">3.4 Tarefa Kanban</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">3.5 Agenda</a></li>
+                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">3.6 Feed</a></li>
+                </ul>
+            </li>
+            <li class="special_link @Html.IsSelected(controller: " Landing")">
+                <a href="@Url.Action("Index", "Landing")"><i class="fa fa-star"></i> <span class="nav-label" data-i18n="nav.landing">4 Análise</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: "Layouts")">
+                <a href="@Url.Action("Index", "Layouts")"><i class="fa fa-diamond"></i> <span class="nav-label" data-i18n="nav.layouts">5 Configurações Gerais</span></a>
             </li>
         </ul>
     </div>
