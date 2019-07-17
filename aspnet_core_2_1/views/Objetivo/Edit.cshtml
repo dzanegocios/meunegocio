@@ -1,0 +1,71 @@
+﻿@model ASPNET_Core_2_1.Models.Objetivo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Objetivo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nivel" class="control-label"></label>
+                <input asp-for="Nivel" class="form-control" />
+                <span asp-validation-for="Nivel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataInicio" class="control-label"></label>
+                <input asp-for="DataInicio" class="form-control" />
+                <span asp-validation-for="DataInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataTermino" class="control-label"></label>
+                <input asp-for="DataTermino" class="form-control" />
+                <span asp-validation-for="DataTermino" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Imagem" class="control-label"></label>
+                <input asp-for="Imagem" class="form-control" />
+                <span asp-validation-for="Imagem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LkpPessoa" class="control-label"></label>
+                <select asp-for="LkpPessoa" class="form-control" asp-items="ViewBag.LkpPessoa"></select>
+                <span asp-validation-for="LkpPessoa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LkpResponsavel" class="control-label"></label>
+                <select asp-for="LkpResponsavel" class="form-control" asp-items="ViewBag.LkpResponsavel"></select>
+                <span asp-validation-for="LkpResponsavel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LkpMetrica" class="control-label"></label>
+                <select asp-for="LkpMetrica" class="form-control" asp-items="ViewBag.LkpMetrica"></select>
+                <span asp-validation-for="LkpMetrica" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LkpPerspectiva" class="control-label"></label>
+                <select asp-for="LkpPerspectiva" class="form-control" asp-items="ViewBag.LkpPerspectiva"></select>
+                <span asp-validation-for="LkpPerspectiva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,72 @@
+﻿@model ASPNET_Core_2_1.Models.Objetivo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Objetivo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nivel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nivel)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataInicio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataInicio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataTermino)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataTermino)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagem)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Imagem)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpMetricaNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpMetricaNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpPerspectivaNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpPerspectivaNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpPessoaNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpPessoaNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpResponsavelNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpResponsavelNavigation.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

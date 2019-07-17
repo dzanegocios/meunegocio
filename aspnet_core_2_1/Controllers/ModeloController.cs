@@ -17,8 +17,8 @@ namespace MEUNEGOCIO.Controllers
         {
             _context = context;
         }
-
-        // GET: Modeloes
+        // GET: Modelos
+        [Route("modelo")]
         public async Task<IActionResult> Index()
         {
             var meunegocioContext = _context.Modelo.Include(m => m.LkpPessoaNavigation);

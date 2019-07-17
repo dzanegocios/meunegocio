@@ -1,0 +1,389 @@
+﻿@model IEnumerable<ASPNET_Core_2_1.Models.Objetivo>
+
+@{
+    ViewData["Title"] = "Mapa Estratégico";
+}
+
+<h2>2.2 Mapa Estratégico</h2>
+<!-- objetivo ok-->
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li><a class="nav-link active" data-toggle="tab" href="#tab-1"> This is tab</a></li>
+                    <li><a class="nav-link" data-toggle="tab" href="#tab-2">This is second tab</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="widget navy-bg no-padding">
+                                    <div class="p-m">
+                                        <h1 class="m-xs">$ 1,540</h1>
+
+                                        <h3 class="font-bold no-margins">
+                                            Annual income
+                                        </h3>
+                                        <small>Income form project Alpha.</small>
+                                    </div>
+                                    <div class="flot-chart">
+                                        <div class="flot-chart-content" id="flot-chart1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="row">
+                                    <div class="d-flex flex-wrap">
+                                        <div class="widget bg-danger">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
+                                                </div>
+                                                <div class="col-9 text-right">
+                                                    <span> Today degrees </span>
+                                                    <h2 class="font-bold">26'C</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget bg-danger">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
+                                                </div>
+                                                <div class="col-9 text-right">
+                                                    <span> Today degrees </span>
+                                                    <h2 class="font-bold">26'C</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget bg-danger">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
+                                                </div>
+                                                <div class="col-9 text-right">
+                                                    <span> Today degrees </span>
+                                                    <h2 class="font-bold">26'C</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="widget navy-bg no-padding">
+                                    <div class="p-m">
+                                        <h1 class="m-xs">$ 3,229</h1>
+
+                                        <h3 class="font-bold no-margins">
+                                            Annual income
+                                        </h3>
+                                        <small>Income form project Alpha.</small>
+                                    </div>
+                                    <div class="flot-chart">
+                                        <div class="flot-chart-content" id="flot-chart2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="widget style1 lazur-bg">
+                                            <div class="row vertical-align">
+                                                <div class="col-4">
+                                                    DESP.
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <h2 class="font-bold">69%</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib/iCheck/icheck.min.js"></script>
+        <script src="~/lib/flot/jquery.flot.js"></script>
+        <script src="~/lib/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="~/lib/flot/jquery.flot.resize.js"></script>
+        <script src="~/lib/flot/jquery.flot.pie.js"></script>
+        <script src="~/lib/flot/jquery.flot.time.js"></script>
+        <script src="~/lib/flot/jquery.flot.spline.js"></script>
+        <script src="~/lib/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="~/lib/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/iCheck/icheck.min.js"></script>
+        <script src="~/lib/flot/jquery.flot.js"></script>
+        <script src="~/lib/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="~/lib/flot/jquery.flot.resize.js"></script>
+        <script src="~/lib/flot/jquery.flot.pie.js"></script>
+        <script src="~/lib/flot/jquery.flot.time.js"></script>
+        <script src="~/lib/flot/jquery.flot.spline.js"></script>
+        <script src="~/lib/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="~/lib/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var d1 = [[1257304000000, 1000], [1264982400000, 3057], [1267401600000, 20434], [1270080000000, 31982], [1272672000000, 26602], [1275350400000, 27826], [1277942400000, 24302], [1280620800000, 24237], [1283299200000, 21004], [1285891200000, 12144], [1288569600000, 10577], [1291161600000, 10295]];
+            var d2 = [[1262304000000, 5], [1264982400000, 200], [1267401600000, 1605], [1270080000000, 6129], [1272672000000, 11643], [1275350400000, 19055], [1277942400000, 30062], [1280620800000, 39197], [1283299200000, 37000], [1285891200000, 27000], [1288569600000, 21000], [1291161600000, 17000]];
+            
+            var data1 = [
+                { label: "Data 1", data: d1, color: '#17a084' },
+                { label: "Data 2", data: d2, color: '#127e68' }
+            ];
+            $.plot($("#flot-chart1"), data1, {
+                xaxis: {
+                    tickDecimals: 0
+                },
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        fillColor: {
+                            colors: [{
+                                opacity: 1
+                            }, {
+                                opacity: 1
+                            }]
+                        },
+                    },
+                    points: {
+                        width: 0.1,
+                        show: false
+                    },
+                },
+                grid: {
+                    show: false,
+                    borderWidth: 0
+                },
+                legend: {
+                    show: false,
+                }
+            });
+
+            var data2 = [
+                { label: "Data 1", data: d1, color: '#19a0a1' }
+            ];
+            $.plot($("#flot-chart2"), data2, {
+                xaxis: {
+                    tickDecimals: 0
+                },
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        fillColor: {
+                            colors: [{
+                                opacity: 1
+                            }, {
+                                opacity: 1
+                            }]
+                        },
+                    },
+                    points: {
+                        width: 0.1,
+                        show: false
+                    },
+                },
+                grid: {
+                    show: false,
+                    borderWidth: 0
+                },
+                legend: {
+                    show: false,
+                }
+            });
+
+            var data3 = [
+                { label: "Data 1", data: d1, color: '#fbbe7b' },
+                { label: "Data 2", data: d2, color: '#f8ac59' }
+            ];
+            $.plot($("#flot-chart3"), data3, {
+                xaxis: {
+                    tickDecimals: 0
+                },
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        fillColor: {
+                            colors: [{
+                                opacity: 1
+                            }, {
+                                opacity: 1
+                            }]
+                        },
+                    },
+                    points: {
+                        width: 0.1,
+                        show: false
+                    },
+                },
+                grid: {
+                    show: false,
+                    borderWidth: 0
+                },
+                legend: {
+                    show: false,
+                }
+            });
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            var mapData = {
+                "US": 498,
+                "SA": 200,
+                "CA": 1300,
+                "DE": 220,
+                "FR": 540,
+                "CN": 120,
+                "AU": 760,
+                "BR": 550,
+                "IN": 200,
+                "GB": 120,
+                "RU": 2000
+            };
+
+            $('#world-map').vectorMap({
+                map: 'world_mill_en',
+                backgroundColor: "transparent",
+                regionStyle: {
+                    initial: {
+                        fill: '#e4e4e4',
+                        "fill-opacity": 1,
+                        stroke: 'none',
+                        "stroke-width": 0,
+                        "stroke-opacity": 0
+                    }
+                },
+                series: {
+                    regions: [{
+                        values: mapData,
+                        scale: ["#1ab394", "#22d6b1"],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+            });
+
+        });
+    </script>
+}

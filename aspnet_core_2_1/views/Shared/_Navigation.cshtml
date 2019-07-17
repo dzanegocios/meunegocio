@@ -12,14 +12,14 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    MN
                 </div>
             </li>
-            <li class="@Html.IsSelected(controller: "Home")">
+            <li class="@Html.IsSelected(controller: "Modelo")">
                 <a href="@Url.Action("Main", "Home")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">1 Negócio</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Dashboards", cssClass: "in")">
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Negocio", cssClass: "in")">
                     <li class="@Html.IsSelected(action: "Main")"><a href="@Url.Action("Main", "Home")">1.1 Filosofia</a></li>
-                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.2 Modelo</a></li>
+                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Modelo")">1.2 Modelo</a></li>
                     <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.3 Área</a></li>
                     <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.4 Setor</a></li>
                     <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "Home")">1.5 Cargo</a></li>
@@ -31,7 +31,7 @@
                 <a href="@Url.Action("Main", "ABC")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">2 Planejamento</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Dashboards", cssClass: "in")">
                     <li class="@Html.IsSelected(action: "Main")"><a href="@Url.Action("Main", "ABC")">2.1 Diagnóstico</a></li>
-                    <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">2.2 Mapa Estratégico</a></li>
+                    <li class="@Html.IsSelected(action: "Index")"><a href="@Url.Action("Index", "Objetivo")">2.2 Mapa Estratégico</a></li>
                     <li class="@Html.IsSelected(action: "Minor")"><a href="@Url.Action("Main", "ABC")">2.3 Mapa Estratégico</a></li>
                 </ul>
             </li>
