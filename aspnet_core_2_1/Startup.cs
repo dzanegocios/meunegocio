@@ -35,7 +35,7 @@ namespace ASPNET_Core_2_1
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var connection = "Server=localhost;Database=meu-negocio;Trusted_Connection=True;";
+            var connection = "Server=LAPTOP-CUMLKL08\\SQLEXPRESS;Database=meu-negocio;Trusted_Connection=True;";
             services.AddDbContext<meunegocioContext>(options => options.UseSqlServer(connection));
         }
 
