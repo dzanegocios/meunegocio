@@ -24,7 +24,14 @@ namespace MEUNEGOCIO.Controllers
             var meunegocioContext = _context.Objetivo.Include(o => o.LkpMetricaNavigation).Include(o => o.LkpPerspectivaNavigation).Include(o => o.LkpPessoaNavigation).Include(o => o.LkpResponsavelNavigation);
             return View(await meunegocioContext.ToListAsync());
         }
-
+        public async Task<IActionResult> v5()
+        {
+            return View();
+        }
+        public async Task<IActionResult> teste()
+        {
+            return View();
+        }
         // GET: Objetivoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
