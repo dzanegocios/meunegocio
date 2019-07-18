@@ -50,7 +50,7 @@ namespace ASPNET_Core_2_1.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=LAPTOP-CUMLKL08\\SQLEXPRESS;Database=meu-negocio;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=meu-negocio;Trusted_Connection=True;");
             }
         }
 
