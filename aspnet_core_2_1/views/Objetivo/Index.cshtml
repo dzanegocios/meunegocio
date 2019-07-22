@@ -1,483 +1,433 @@
 ﻿@model IEnumerable<ASPNET_Core_2_1.Models.Objetivo>
 
 @{
-    ViewData["Title"] = "Mapa Estratégico";
+    ViewData["Title"] = "Mapa";
 }
-<!-- DASH V5 -->
-    
-            <div class="col-lg-12">
-                <!-- ABA PRIMEIRO NIVEL -->
-                <div class="tabs-container">
-                    <ul class="nav nav-tabs">
-                        <li><a class="nav-link active" data-toggle="tab" href="#tab-1">1</a></li>
-                        <li><a class="nav-link" data-toggle="tab" href="#tab-2">2</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <!-- 1 -->
-                        <div id="tab-1" class="tab-pane active">
-                            <div class="panel-body">
-                                <div class="tabs-container">
-                                    <div class="tabs-left">
-                                        <ul class="nav nav-tabs">
-                                            <li><a class="nav-link active" data-toggle="tab" href="#tab-11">11</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-12">12</a></li>
-                                        </ul>
-                                        <div class="tab-content ">
-                                            <!-- 11 -->
-                                            <div id="tab-11" class="tab-pane active">
-                                                <div class="panel-body">
-                                                    <div class="tabs-container">
-                                                        <div class="tab-content ">
-                                                            <!-- 1 OBJETIVO -->
+<style>
+    a {
+        outline: none;
+        color: inherit;
+    }
+</style>
+<div class="row justify-content-md-center">
+    <div class="col-lg-11">
+        <div class="ibox">
+            <div class="slick_demo_1">
+                <div>
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                    <div class="panel-heading" style="background-color: #99e3d4">
+                                        <h5 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | Qtd Objetivos: 2 | Qtd Planos: 10 | Qtd Metricas: 23 | Qtd Planos ativos: 7 | Desempenho: 78%</a>
+                                        </h5>
+                                    </div>
+                                    <!-- MIOLO -->
+                                    @foreach (var objetivo in Model)
+                                    {
+                                    <div id="collapseOne" class="pt-2 panel-collapse collapse in">
+                                        <div class="col-12">
+                                            <div class="panel-group pb-2" id="accordion">
+                                                <!-- OBJETIVO 1 -->
+                                                <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                                    <div class="panel-heading" style="background-color: #99e3d4">
+                                                        <h5 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#faturamento">Aumentar Faturamento | Qtd Planos: 10 | Qtd Metricas: 23 | Qtd Planos ativos: 7 | Desempenho: 98%</a>
+                                                        </h5>
+                                                    </div>
+                                                    <!-- MIOLO -->
+                                                    <div id="faturamento" class="panel-collapse collapse in">
+                                                        <div class="panel-body">
                                                             <div class="row">
-                                                                <div class="col-lg-5">
-                                                                    <div class="widget no-padding">
-                                                                        <div class="p-m">
-                                                                            <h1 class="m-xs">$ 3,229</h1>
-                                                                            <h3 class="font-bold no-margins">
-                                                                                Annual income
-                                                                            </h3>
-                                                                            <small>Income form project Alpha.</small>
+                                                                <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Desempenho</h5>
+                                                                            <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                                            <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                                         </div>
-                                                                        <div class="flot-chart m-b-xl">
-                                                                            <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+                                                                    </div>
+                                                                    <table class="table small m-t-sm">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="small">
+                                                                                        <strong>Sales char</strong> have evolved over the years sometimes.
+                                                                                    </div>
+                                                                                    <div class="small">
+                                                                                        <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                                                                                    </div>
+                                                                                </td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <a onclick="atualizarGrafico([
+                    [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
+                ],
+                [
+                    [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
+                ]);">
+                                                                        <div class="row m-t-xs text-center">
+                                                                            <div class="col-12">
+                                                                                <h5 class="m-b-xs">@Html.DisplayFor(modelItem => objetivo.Descricao)</h5>
+                                                                                <h1 class="no-margins text-navy">R$ @ViewBag.LkpMetrica</h1>
+                                                                                <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Faturamento Bebidas</h5>
+                                                                            <h1 class="no-margins text-navy">160,000</h1>
+                                                                            <div class="font-bold" style="color: #00b894">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-7">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-4">
-                                                                            <div class="tooltip-demo">
-                                                                                <div class="widget style1 navy-bg" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                                                                    <div class="row">
-                                                                                        <div class="col-4">
-                                                                                            <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                            <span> 11% </span>
-                                                                                        </div>
-                                                                                        <div class="col-8 text-right">
-                                                                                            <span> Today degrees </span>
-                                                                                            <h2 class="font-bold">26'C</h2>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <span> 11% </span>
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <span> 11% </span>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <span> 11% </span>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <span> 11% </span>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <h3>11%</h3>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Lucratividade</h5>
+                                                                            <h1 class="no-margins text-navy">13%</h1>
+                                                                            <div class="font-bold" style="color: #00b894">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">ROI</h5>
+                                                                            <h1 class="no-margins text-navy">5</h1>
+                                                                            <div class="font-bold" style="color: #00b894">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Rotatividade Salão</h5>
+                                                                            <h1 class="no-margins" style="color: #d63031">15%</h1>
+                                                                            <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
-                                                            <!-- 2 OBJETIVO-->
                                                             <div class="row">
-                                                                <div class="col-lg-5">
-                                                                    <div class="widget no-padding">
-                                                                        <div class="p-m">
-                                                                            <h1 class="m-xs">$ 3,229</h1>
-                                                                            <h3 class="font-bold no-margins">
-                                                                                Annual income
-                                                                            </h3>
-                                                                            <small>Income form project Alpha.</small>
-                                                                        </div>
-                                                                        <div class="flot-chart m-b-xl">
-                                                                            <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-7">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-4">
-                                                                            <div class="tooltip-demo">
-                                                                                <div class="widget style1 navy-bg" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                                                                    <div class="row">
-                                                                                        <div class="col-4">
-                                                                                            <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                            <span> 11% </span>
-
-                                                                                        </div>
-                                                                                        <div class="col-8 text-right">
-                                                                                            <span> Today degrees </span>
-                                                                                            <h2 class="font-bold">26'C</h2>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 alert-success">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <h3>11%</h3>
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <h3>11%</h3>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <h3>11%</h3>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <h3>11%</h3>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <h3>11%</h3>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                <div class="col-lg-12">
+                                                                    <div class="flot-chart">
+                                                                        <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!-- 12 -->
-                                            <div id="tab-12" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <div class="tabs-container">
-
-                                                        <div class="tab-content ">
+                                                <!-- OBJETIVO 2 -->
+                                                <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                                    <div class="panel-heading" style="background-color: #99e3d4">
+                                                        <h5 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#faturamento">Aumentar Faturamento | Qtd Planos: 10 | Qtd Metricas: 23 | Qtd Planos ativos: 7 | Desempenho: 98%</a>
+                                                        </h5>
+                                                    </div>
+                                                    <!-- MIOLO -->
+                                                    <div id="faturamento" class="panel-collapse collapse in">
+                                                        <div class="panel-body">
                                                             <div class="row">
-                                                                <div class="col-lg-5">
-                                                                    <div class="widget no-padding">
-                                                                        <div class="p-m">
-                                                                            <h1 class="m-xs">$ 3,229</h1>
-                                                                            <h3 class="font-bold no-margins">
-                                                                                Annual income
-                                                                            </h3>
-                                                                            <small>Income form project Alpha.</small>
+                                                                <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Desempenho</h5>
+                                                                            <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                                            <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                                         </div>
-                                                                        <div class="flot-chart m-b-xl">
-                                                                            <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+                                                                    </div>
+                                                                    <table class="table small m-t-sm">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div class="small">
+                                                                                        <strong>Sales char</strong> have evolved over the years sometimes.
+                                                                                    </div>
+                                                                                    <div class="small">
+                                                                                        <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                                                                                    </div>
+                                                                                </td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Faturamento Lanches</h5>
+                                                                            <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                                            <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-7">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-4">
-                                                                            <div class="tooltip-demo">
-                                                                                <div class="widget style1 navy-bg" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                                                                    <div class="row">
-                                                                                        <div class="col-4">
-                                                                                            <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                            <span> 11% </span>
-                                                                                        </div>
-                                                                                        <div class="col-8 text-right">
-                                                                                            <span> Today degrees </span>
-                                                                                            <h2 class="font-bold">26'C</h2>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Faturamento Bebidas</h5>
+                                                                            <h1 class="no-margins text-navy">160,000</h1>
+                                                                            <div class="font-bold" style="color: #00b894">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
                                                                         </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <span> 11% </span>
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Lucratividade</h5>
+                                                                            <h1 class="no-margins text-navy">13%</h1>
+                                                                            <div class="font-bold" style="color: #00b894">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
                                                                         </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <span> 11% </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">ROI</h5>
+                                                                            <h1 class="no-margins text-navy">5</h1>
+                                                                            <div class="font-bold" style="color: #00b894">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-2">
+                                                                    <div class="row m-t-xs text-center">
+                                                                        <div class="col-12">
+                                                                            <h5 class="m-b-xs">Rotatividade Salão</h5>
+                                                                            <h1 class="no-margins" style="color: #d63031">15%</h1>
+                                                                            <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <span> 11% </span>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <span> 11% </span>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-4">
-                                                                            <div class="widget style1 navy-bg">
-                                                                                <div class="row">
-                                                                                    <div class="col-4">
-                                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                                        <h3>11%</h3>
-
-                                                                                    </div>
-                                                                                    <div class="col-8 text-right">
-                                                                                        <span> Today degrees </span>
-                                                                                        <h2 class="font-bold">26'C</h2>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="flot-chart">
+                                                                        <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    }
                                 </div>
                             </div>
-                        </div>
-                        <!-- 2 -->
-                        <div id="tab-2" class="tab-pane">
-                            <div class="panel-body">
-                                <div class="tabs-container">
-                                    <div class="tabs-left">
-                                        <ul class="nav nav-tabs">
-                                            <li><a class="nav-link active" data-toggle="tab" href="#tab-21">21</a></li>
-                                            <li><a class="nav-link" data-toggle="tab" href="#tab-22">22</a></li>
-                                        </ul>
-                                        <div class="tab-content ">
-                                            <!-- 21 -->
-                                            <div id="tab-21" class="tab-pane active">
-                                                <div class="panel-body">
-                                                    <div class="tabs-container">
-                                                        <ul class="nav nav-tabs">
-                                                            <li><a class="nav-link active" data-toggle="tab" href="#tab-211">211</a></li>
-                                                            <li><a class="nav-link" data-toggle="tab" href="#tab-212">212</a></li>
-                                                        </ul>
-                                                        <div class="tab-content ">
-                                                            <!-- 211 -->
-                                                            <div id="tab-211" class="tab-pane active">
-                                                                <div class="panel-body">
-                                                                    <strong>211</strong>
-
-                                                                    <p>
-                                                                        A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-                                                                        existence in this spot, which was created for the bliss of souls like mine.
-                                                                    </p>
-
-                                                                    <p>
-                                                                        I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                                                        the present moment; and yet I feel that I never was a greater artist than now. When.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <!-- 212 -->
-                                                            <div id="tab-212" class="tab-pane">
-                                                                <div class="panel-body">
-                                                                    <strong>212</strong>
-
-                                                                    <p>
-                                                                        Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                                                        and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath
-                                                                    </p>
-
-                                                                    <p>
-                                                                        I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                                                        sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
+                            <!-- 2 accordion -->
+                            <div class="panel-group" id="accordion2">
+                                <div class="panel panel-default" style="border: 1px solid #d63031; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                    <div class="panel-heading" style="background-color: #d69797">
+                                        <h5 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Collapsible Group Item #1</a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
+                                                    <div class="row m-t-xs text-center">
+                                                        <div class="col-12">
+                                                            <h5 class="m-b-xs">Faturamento Total</h5>
+                                                            <h1 class="no-margins" style="color: #d63031"> R$ 131K</h1>
+                                                            <div class="font-bold" style="color: #d63031">94% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                         </div>
                                                     </div>
+                                                    <table class="col-12 table small m-t-sm">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>142</strong> Projects
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>61</strong> Comments
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>154</strong> Companies
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row m-t-xs text-center">
+                                                        <div class="col-12">
+                                                            <h5 class="m-b-xs">Faturamento Lanches</h5>
+                                                            <h1 class="no-margins" style="color: #d63031">R$ 88K</h1>
+                                                            <div class="font-bold text-navy">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i> </div>
+                                                        </div>
+                                                    </div>
+                                                    <table class="table small m-t-sm">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>142</strong> Projects
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>61</strong> Comments
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>154</strong> Companies
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row m-t-xs text-center">
+                                                        <div class="col-12">
+                                                            <h5 class="m-b-xs">Faturamento Bebidas</h5>
+                                                            <h1 class="no-margins text-navy">160,000</h1>
+                                                            <div class="font-bold text-navy">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <table class="table small m-t-sm">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>142</strong> Projects
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>61</strong> Comments
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>154</strong> Companies
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row m-t-xs text-center">
+                                                        <div class="col-12">
+                                                            <h5 class="m-b-xs">Lucratividade</h5>
+                                                            <h1 class="no-margins text-navy">13%</h1>
+                                                            <div class="font-bold text-navy">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <table class="table small m-t-sm">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>142</strong> Projects
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>61</strong> Comments
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>154</strong> Companies
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row m-t-xs text-center">
+                                                        <div class="col-12">
+                                                            <h5 class="m-b-xs">ROI</h5>
+                                                            <h1 class="no-margins text-navy">5</h1>
+                                                            <div class="font-bold text-navy">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <table class="table small m-t-sm">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>142</strong> Projects
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>61</strong> Comments
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>154</strong> Companies
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="row m-t-xs text-center">
+                                                        <div class="col-12">
+                                                            <h5 class="m-b-xs">Rotatividade Salão</h5>
+                                                            <h1 class="no-margins" style="color: #d63031">15%</h1>
+                                                            <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                        </div>
+                                                    </div>
+                                                    <table class="table small m-t-sm">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>142</strong> Projects
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>61</strong> Comments
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>154</strong> Companies
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
-                                            <!-- 22 -->
-                                            <div id="tab-22" class="tab-pane">
-                                                <div class="panel-body">
-                                                    <div class="tabs-container">
-                                                        <ul class="nav nav-tabs">
-                                                            <li><a class="nav-link active" data-toggle="tab" href="#tab-221">221</a></li>
-                                                            <li><a class="nav-link" data-toggle="tab" href="#tab-222">222</a></li>
-                                                        </ul>
-                                                        <div class="tab-content ">
-                                                            <!-- 221 -->
-                                                            <div id="tab-221" class="tab-pane active">
-                                                                <div class="panel-body">
-                                                                    <strong>221</strong>
-
-                                                                    <p>
-                                                                        A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-                                                                        existence in this spot, which was created for the bliss of souls like mine.
-                                                                    </p>
-
-                                                                    <p>
-                                                                        I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                                                        the present moment; and yet I feel that I never was a greater artist than now. When.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <!-- 222 -->
-                                                            <div id="tab-222" class="tab-pane">
-                                                                <div class="panel-body">
-                                                                    <strong>222</strong>
-
-                                                                    <p>
-                                                                        Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                                                        and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath
-                                                                    </p>
-
-                                                                    <p>
-                                                                        I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                                                        sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="small float-left col-md-3 m-l-lg m-t-md">
+                                                        <strong>Sales char</strong> have evolved over the years sometimes.
+                                                    </div>
+                                                    <div class="small float-right col-md-3 m-t-md text-right">
+                                                        <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                                                    </div>
+                                                    <div class="flot-chart">
+                                                        <div class="flot-chart-content" id="flot-dashboard1-chart"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -488,978 +438,675 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    <div class="ibox-content">
+
+                    </div>
+                </div>
+                <div>
+                    <div class="ibox-content">
+
+                    </div>
+                </div>
             </div>
-
-            <!--divisor-->
-            <h2>2.2 Mapa Estratégico</h2>
-            <div class="wrapper wrapper-content animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <div class="tabs-container">
-                            <ul class="nav nav-tabs">
-                                <li><a class="nav-link active" data-toggle="tab" href="#tab-1"> DZA</a></li>
-                                <li><a class="nav-link" data-toggle="tab" href="#tab-2">NICOLAS</a></li>
-                                <li><a class="nav-link" data-toggle="tab" href="#tab-3">LEO</a></li>
-                                <li><a class="nav-link" data-toggle="tab" href="#tab-4">DOUGLAS</a></li>
-                            </ul>
-
-                            <div class="tab-content">
-                                <div id="tab-1" class="tab-pane active">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="tabs-container">
+            <ul class="nav nav-tabs">
+                <li><a class="nav-link active" data-toggle="tab" href="#tab-1">1</a></li>
+                <li><a class="nav-link" data-toggle="tab" href="#tab-2">2</a></li>
+            </ul>
+            <!-- 1 accordion -->
+            <div class="tab-content">
+                <!-- 1 -->
+                <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                <div class="panel-heading" style="background-color: #99e3d4">
+                                    <h5 class="panel-title">
+                                        <a class="removeOutline" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Collapsible Group Item #1</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="widget no-padding">
-                                                    <div class="p-m">
-                                                        <h1 class="m-xs">$ 3,229</h1>
-                                                        <h3 class="font-bold no-margins">
-                                                            Annual income
-                                                        </h3>
-                                                        <small>Income form project Alpha.</small>
-                                                    </div>
-                                                    <div class="flot-chart m-b-xl">
-                                                        <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+                                            <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Desempenho</h5>
+                                                        <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                        <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                     </div>
                                                 </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="col-lg-7">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="tooltip-demo">
-                                                            <div class="widget style1 navy-bg" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                                                <div class="row">
-                                                                    <div class="col-4">
-                                                                        <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                        <h3>11%</h3>
-                                                                    </div>
-                                                                    <div class="col-8 text-right">
-                                                                        <span> Today degrees </span>
-                                                                        <h2 class="font-bold">26'C</h2>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                    <h3>11%</h3>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                    <h3>11%</h3>
-
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                    <h3>11%</h3>
-
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                    <h3>11%</h3>
-
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-2x"></i>
-                                                                    <h3>11%</h3>
-
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Faturamento Lanches</h5>
+                                                        <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                        <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                     </div>
                                                 </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                        </div>
-
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-lg-5">
-                                                    <div class="widget navy-bg no-padding">
-                                                        <div class="p-m">
-                                                            <h1 class="m-xs">$ 3,229</h1>
-
-                                                            <h3 class="font-bold no-margins">
-                                                                Annual income
-                                                            </h3>
-                                                            <small>Income form project Alpha.</small>
-                                                        </div>
-                                                        <div class="flot-chart">
-                                                            <div class="flot-chart-content" id="flot-chart2"></div>
-                                                        </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Faturamento Bebidas</h5>
+                                                        <h1 class="no-margins text-navy">160,000</h1>
+                                                        <div class="font-bold" style="color: #00b894">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-7">
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="widget style1 navy-bg">
-                                                                <div class="row">
-                                                                    <div class="col-4">
-                                                                        <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                    </div>
-                                                                    <div class="col-8 text-right">
-                                                                        <span> Today degrees </span>
-                                                                        <h2 class="font-bold">26'C</h2>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="widget style1 navy-bg">
-                                                                <div class="row">
-                                                                    <div class="col-4">
-                                                                        <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                    </div>
-                                                                    <div class="col-8 text-right">
-                                                                        <span> Today degrees </span>
-                                                                        <h2 class="font-bold">26'C</h2>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="widget style1 navy-bg">
-                                                                <div class="row">
-                                                                    <div class="col-4">
-                                                                        <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                    </div>
-                                                                    <div class="col-8 text-right">
-                                                                        <span> Today degrees </span>
-                                                                        <h2 class="font-bold">26'C</h2>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="widget style1 navy-bg">
-                                                                <div class="row">
-                                                                    <div class="col-4">
-                                                                        <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                    </div>
-                                                                    <div class="col-8 text-right">
-                                                                        <span> Today degrees </span>
-                                                                        <h2 class="font-bold">26'C</h2>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="widget style1 navy-bg">
-                                                                <div class="row">
-                                                                    <div class="col-4">
-                                                                        <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                    </div>
-                                                                    <div class="col-8 text-right">
-                                                                        <span> Today degrees </span>
-                                                                        <h2 class="font-bold">26'C</h2>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="widget style1 navy-bg">
-                                                                <div class="row">
-                                                                    <div class="col-4">
-                                                                        <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                    </div>
-                                                                    <div class="col-8 text-right">
-                                                                        <span> Today degrees </span>
-                                                                        <h2 class="font-bold">26'C</h2>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="widget style1 navy-bg">
-                                                                <div class="row">
-                                                                    <div class="col-4">
-                                                                        <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                    </div>
-                                                                    <div class="col-8 text-right">
-                                                                        <span> Today degrees </span>
-                                                                        <h2 class="font-bold">26'C</h2>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
 
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Lucratividade</h5>
+                                                        <h1 class="no-margins text-navy">13%</h1>
+                                                        <div class="font-bold" style="color: #00b894">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
                                                 </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">ROI</h5>
+                                                        <h1 class="no-margins text-navy">5</h1>
+                                                        <div class="font-bold" style="color: #00b894">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
+                                                </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Rotatividade Salão</h5>
+                                                        <h1 class="no-margins" style="color: #d63031">15%</h1>
+                                                        <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
+                                                </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div id="tab-2" class="tab-pane">
-                                    <div class="container">
                                         <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="widget navy-bg no-padding">
-                                                    <div class="p-m">
-                                                        <h1 class="m-xs">$ 33,229</h1>
-
-                                                        <h3 class="font-bold no-margins">
-                                                            Annual income
-                                                        </h3>
-                                                        <small>Income form project Alpha.</small>
-                                                    </div>
-                                                    <div class="flot-chart">
-                                                        <div class="flot-chart-content" id="flot-chart1"></div>
-                                                    </div>
+                                            <div class="col-lg-12">
+                                                <div class="small float-left col-md-3 m-l-lg m-t-md">
+                                                    <strong>Sales char</strong> have evolved over the years sometimes.
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <div class="small float-right col-md-3 m-t-md text-right">
+                                                    <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="widget navy-bg no-padding">
-                                                    <div class="p-m">
-                                                        <h1 class="m-xs">$ 3,229</h1>
-
-                                                        <h3 class="font-bold no-margins">
-                                                            Annual income
-                                                        </h3>
-                                                        <small>Income form project Alpha.</small>
-                                                    </div>
-                                                    <div class="flot-chart">
-                                                        <div class="flot-chart-content" id="flot-chart1"></div>
-                                                    </div>
+                                                <div class="flot-chart">
+                                                    <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="tab-3" class="tab-pane">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="widget navy-bg no-padding">
-                                                    <div class="p-m">
-                                                        <h1 class="m-xs">$ 31,229</h1>
-
-                                                        <h3 class="font-bold no-margins">
-                                                            Annual income
-                                                        </h3>
-                                                        <small>Income form project Alpha.</small>
-                                                    </div>
-                                                    <div class="flot-chart">
-                                                        <div class="flot-chart-content" id="flot-chart1"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="widget navy-bg no-padding">
-                                                    <div class="p-m">
-                                                        <h1 class="m-xs">$ 3,229</h1>
-
-                                                        <h3 class="font-bold no-margins">
-                                                            Annual income
-                                                        </h3>
-                                                        <small>Income form project Alpha.</small>
-                                                    </div>
-                                                    <div class="flot-chart">
-                                                        <div class="flot-chart-content" id="flot-chart1"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            x
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="tab-4" class="tab-pane">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="widget navy-bg no-padding">
-                                                    <div class="p-m">
-                                                        <h1 class="m-xs">$ 999</h1>
-
-                                                        <h3 class="font-bold no-margins">
-                                                            Annual income
-                                                        </h3>
-                                                        <small>Income form project Alpha.</small>
-                                                    </div>
-                                                    <div class="flot-chart">
-                                                        <div class="flot-chart-content" id="flot-chart1"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="widget navy-bg no-padding">
-                                                    <div class="p-m">
-                                                        <h1 class="m-xs">$ 3,229</h1>
-
-                                                        <h3 class="font-bold no-margins">
-                                                            Annual income
-                                                        </h3>
-                                                        <small>Income form project Alpha.</small>
-                                                    </div>
-                                                    <div class="flot-chart">
-                                                        <div class="flot-chart-content" id="flot-chart1"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="widget style1 navy-bg">
-                                                            <div class="row">
-                                                                <div class="col-4">
-                                                                    <i class="fa fa-play fa-rotate-270 fa-3x"></i>
-                                                                </div>
-                                                                <div class="col-8 text-right">
-                                                                    <span> Today degrees </span>
-                                                                    <h2 class="font-bold">26'C</h2>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- 2 accordion -->
+                        <div class="panel-group" id="accordion2">
+                            <div class="panel panel-default" style="border: 1px solid #d63031; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                <div class="panel-heading" style="background-color: #d69797">
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Collapsible Group Item #1</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Faturamento Total</h5>
+                                                        <h1 class="no-margins" style="color: #d63031"> R$ 131K</h1>
+                                                        <div class="font-bold" style="color: #d63031">94% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
+                                                </div>
+                                                <table class="col-12 table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
 
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Faturamento Lanches</h5>
+                                                        <h1 class="no-margins" style="color: #d63031">R$ 88K</h1>
+                                                        <div class="font-bold text-navy">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
+                                                </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Faturamento Bebidas</h5>
+                                                        <h1 class="no-margins text-navy">160,000</h1>
+                                                        <div class="font-bold text-navy">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
+                                                </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Lucratividade</h5>
+                                                        <h1 class="no-margins text-navy">13%</h1>
+                                                        <div class="font-bold text-navy">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
+                                                </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">ROI</h5>
+                                                        <h1 class="no-margins text-navy">5</h1>
+                                                        <div class="font-bold text-navy">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
+                                                </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="row m-t-xs text-center">
+                                                    <div class="col-12">
+                                                        <h5 class="m-b-xs">Rotatividade Salão</h5>
+                                                        <h1 class="no-margins" style="color: #d63031">15%</h1>
+                                                        <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    </div>
+                                                </div>
+                                                <table class="table small m-t-sm">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>142</strong> Projects
+
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>61</strong> Comments
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>154</strong> Companies
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="small float-left col-md-3 m-l-lg m-t-md">
+                                                    <strong>Sales char</strong> have evolved over the years sometimes.
+                                                </div>
+                                                <div class="small float-right col-md-3 m-t-md text-right">
+                                                    <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                                                </div>
+                                                <div class="flot-chart">
+                                                    <div class="flot-chart-content" id="flot-dashboard1-chart"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2 -->
+                <div id="tab-2" class="tab-pane">
+                    <div class="panel-body">
+                        <div class="tabs-container">
+                            <div class="tabs-left">
+                                <ul class="nav nav-tabs">
+                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-21">21</a></li>
+                                    <li><a class="nav-link" data-toggle="tab" href="#tab-22">22</a></li>
+                                </ul>
+                                <div class="tab-content ">
+                                    <!-- 21 -->
+                                    <div id="tab-21" class="tab-pane active">
+                                        <div class="panel-body">
+                                            <div class="tabs-container">
+                                                <ul class="nav nav-tabs">
+                                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-211">211</a></li>
+                                                    <li><a class="nav-link" data-toggle="tab" href="#tab-212">212</a></li>
+                                                </ul>
+                                                <div class="tab-content ">
+                                                    <!-- 211 -->
+                                                    <div id="tab-211" class="tab-pane active">
+                                                        <div class="panel-body">
+                                                            <strong>211</strong>
+
+                                                            <p>
+                                                                A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
+                                                                existence in this spot, which was created for the bliss of souls like mine.
+                                                            </p>
+
+                                                            <p>
+                                                                I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
+                                                                the present moment; and yet I feel that I never was a greater artist than now. When.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- 212 -->
+                                                    <div id="tab-212" class="tab-pane">
+                                                        <div class="panel-body">
+                                                            <strong>212</strong>
+
+                                                            <p>
+                                                                Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
+                                                                and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath
+                                                            </p>
+
+                                                            <p>
+                                                                I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
+                                                                sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 22 -->
+                                    <div id="tab-22" class="tab-pane">
+                                        <div class="panel-body">
+                                            <div class="tabs-container">
+                                                <ul class="nav nav-tabs">
+                                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-221">221</a></li>
+                                                    <li><a class="nav-link" data-toggle="tab" href="#tab-222">222</a></li>
+                                                </ul>
+                                                <div class="tab-content ">
+                                                    <!-- 221 -->
+                                                    <div id="tab-221" class="tab-pane active">
+                                                        <div class="panel-body">
+                                                            <strong>221</strong>
+
+                                                            <p>
+                                                                A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
+                                                                existence in this spot, which was created for the bliss of souls like mine.
+                                                            </p>
+
+                                                            <p>
+                                                                I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
+                                                                the present moment; and yet I feel that I never was a greater artist than now. When.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <!-- 222 -->
+                                                    <div id="tab-222" class="tab-pane">
+                                                        <div class="panel-body">
+                                                            <strong>222</strong>
+
+                                                            <p>
+                                                                Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
+                                                                and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath
+                                                            </p>
+
+                                                            <p>
+                                                                I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
+                                                                sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+        </div>
+    </div>
+</div>
+@section Styles {
+    <environment names="Development,Staging,Production">
+        <link rel="stylesheet" href="~/lib/slick-carousel/slick/slick.css" />
+        <link rel="stylesheet" href="~/lib/slick-carousel/slick/slick-theme.css" />
+        <link rel="stylesheet" href="~/lib/dza/style.css" />
+    </environment>
+}
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/flot/jquery.flot.js"></script>
+        <script src="~/lib/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="~/lib/flot/jquery.flot.resize.js"></script>
+        <script src="~/lib/flot/jquery.flot.pie.js"></script>
+        <script src="~/lib/flot/jquery.flot.time.js"></script>
+        <script src="~/lib/flot/jquery.flot.spline.js"></script>
+        <script src="~/lib/sparkline/jquery.sparkline.min.js"></script>
+        <script src="~/lib/slick-carousel/slick/slick.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+        function atualizarGrafico(data1, data2) {
+            $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
+                data1, data2
+            ],
+                {
+                    series: {
+                        lines: {
+                            show: false,
+                            fill: true
+                        },
+                        splines: {
+                            show: true,
+                            tension: 0.4,
+                            lineWidth: 1,
+                            fill: 0.4
+                        },
+                        points: {
+                            radius: 0,
+                            show: true
+                        },
+                        shadowSize: 2
+                    },
+                    grid: {
+                        hoverable: true,
+                        clickable: true,
+
+                        borderWidth: 2,
+                        color: 'transparent'
+                    },
+                    colors: ["#95a5a6", "#00b894"],
+                    xaxis: {
+                        show: false
+                    },
+                    yaxis: {
+                        show: false
+                    },
+                    tooltip: false
+                }
+            );
+        }
+        $(document).ready(function () {
+            atualizarGrafico([
+                [0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
+            ],
+                [
+                    [0, 0], [1, 2], [2, 7], [3, 4], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
+                ]);
 
 
-            @section Scripts {
-                <environment names="Development,Staging,Production">
-                    <script src="~/lib/flot/jquery.flot.js"></script>
-                    <script src="~/lib/flot/jquery.flot.tooltip.min.js"></script>
-                    <script src="~/lib/flot/jquery.flot.resize.js"></script>
-                    <script src="~/lib/flot/jquery.flot.pie.js"></script>
-                    <script src="~/lib/flot/jquery.flot.time.js"></script>
-                    <script src="~/lib/flot/jquery.flot.spline.js"></script>
-                    <script src="~/lib/sparkline/jquery.sparkline.min.js"></script>
-                </environment>
+            // Carrosel
+            $('.slick_demo_1').slick({
+                dots: true
+            });
 
-                <script type="text/javascript">
-                    $(document).ready(function () {
+            $('.slick_demo_2').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                centerMode: true,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
 
-                        var data1 = [
-                            [0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7], [15, 8], [16, 12]
-                        ];
-                        var data2 = [
-                            [0, 0], [1, 2], [2, 7], [3, 4], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5], [15, 2], [16, 0]
-                        ];
-                        $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
-                            data1, data2
-                        ],
-                            {
-                                series: {
-                                    lines: {
-                                        show: false,
-                                        fill: true
-                                    },
-                                    splines: {
-                                        show: true,
-                                        tension: 0.4,
-                                        lineWidth: 1,
-                                        fill: 0.4
-                                    },
-                                    points: {
-                                        radius: 0,
-                                        show: false
-                                    },
-                                    shadowSize: 2
-                                },
-                                grid: {
-                                    hoverable: true,
-                                    clickable: true,
+            $('.slick_demo_3').slick({
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                adaptiveHeight: true
+            });
+        });
 
-                                    borderWidth: 2,
-                                    color: 'transparent'
-                                },
-                                colors: ["#95a5a6", "#1C84C6"],
-                                xaxis: {
-                                    show: false
-                                },
-                                yaxis: {
-                                    show: false
-                                },
-                                tooltip: false
-                            }
-                        );
-
-
-                    });
-                </script>
-            }
-
+    </script>
+}

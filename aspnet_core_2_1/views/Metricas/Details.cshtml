@@ -1,0 +1,114 @@
+﻿@model ASPNET_Core_2_1.Models.Metrica
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Metrica</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Indice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Indice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Unidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Unidade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Template)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Template)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Planejado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Planejado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Executado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Executado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Razao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Razao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ParecerDescritivo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ParecerDescritivo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpMetricaNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpMetricaNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpObjetivoNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpObjetivoNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpPessoaNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpPessoaNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpPlanoAcaoNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpPlanoAcaoNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpStatusDetalheTarefaNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpStatusDetalheTarefaNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LkpTarefaStatusNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LkpTarefaStatusNavigation.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

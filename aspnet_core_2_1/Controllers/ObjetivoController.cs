@@ -22,6 +22,7 @@ namespace MEUNEGOCIO.Controllers
         public async Task<IActionResult> Index()
         {
             var meunegocioContext = _context.Objetivo.Include(o => o.LkpMetricaNavigation).Include(o => o.LkpPerspectivaNavigation).Include(o => o.LkpPessoaNavigation).Include(o => o.LkpResponsavelNavigation);
+            ViewBag.LkpMetrica = _context.Metrica.Find(1);
             return View(await meunegocioContext.ToListAsync());
         }
         public async Task<IActionResult> v5()
