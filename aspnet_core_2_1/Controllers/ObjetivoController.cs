@@ -12,7 +12,6 @@ namespace MEUNEGOCIO.Controllers
     public class ObjetivoController : Controller
     {
         private readonly meunegocioContext _context;
-
         public ObjetivoController(meunegocioContext context)
         {
             _context = context;
@@ -22,16 +21,29 @@ namespace MEUNEGOCIO.Controllers
         public async Task<IActionResult> Index()
         {
             var meunegocioContext = _context.Objetivo.Include(o => o.LkpMetricaNavigation).Include(o => o.LkpPerspectivaNavigation).Include(o => o.LkpPessoaNavigation).Include(o => o.LkpResponsavelNavigation);
-            ViewBag.LkpMetrica = _context.Metrica.Find(1);
+            ViewBag.colMetrica = _context.Metrica.Include(m => m.LkpMetricaNavigation).Include(m => m.LkpObjetivoNavigation).Include(m => m.LkpPessoaNavigation).Include(m => m.LkpPlanoAcaoNavigation).Include(m => m.LkpStatusDetalheTarefaNavigation).Include(m => m.LkpTarefaStatusNavigation).ToList<Metrica>();
+
+            /* Camadas BSC */
+            var bscFinanceiro = _context.Bsc.Where(b => b.Nome == "Financeiro").ToList<Bsc>().First();
+            var bscClientes = _context.Bsc.Where(b => b.Nome == "Clientes").ToList<Bsc>().First();
+            var bscProcessoInterno = _context.Bsc.Where(b => b.Nome == "Processos Internos").ToList<Bsc>().First();
+            var bscAprendizado = _context.Bsc.Where(b => b.Nome == "Aprendizado e Crescimento").ToList<Bsc>().First();
+
+            /* Coleção de planos por camada */
+            var colPlanosFinanceiro = _context.PlanoAcao.Where(p => p.LkpPerspectiva == bscFinanceiro.Id).ToList<PlanoAcao>();
+            var colPlanosClientes = _context.PlanoAcao.Where(p => p.LkpPerspectiva == bscClientes.Id).ToList<PlanoAcao>();
+            var colPlanosProcessoInterno = _context.PlanoAcao.Where(p => p.LkpPerspectiva == bscProcessoInterno.Id).ToList<PlanoAcao>();
+            var colPlanosAprendizado = _context.PlanoAcao.Where(p => p.LkpPerspectiva == bscAprendizado.Id).ToList<PlanoAcao>();
+
+            /* Coleção de objetivos por camada */
+            var colObjetivoFinanceiro = _context.Objetivo.Where(o => o.LkpPerspectiva == bscFinanceiro.Id).ToList<Objetivo>();
+            var colObjetivoClientes = _context.Objetivo.Where(o => o.LkpPerspectiva == bscClientes.Id).ToList<Objetivo>();
+            var colObjetivoProcessoInterno = _context.Objetivo.Where(o => o.LkpPerspectiva == bscProcessoInterno.Id).ToList<Objetivo>();
+            var colObjetivoAprendizado = _context.Objetivo.Where(o => o.LkpPerspectiva == bscAprendizado.Id).ToList<Objetivo>();
+
+            /* Coleção de metricas por camada */
+            var colMetricaFinanceiro = _context.Metrica.Any(m => m.LkpObjetivo == colObjetivoFinanceiro.Id);
             return View(await meunegocioContext.ToListAsync());
-        }
-        public async Task<IActionResult> v5()
-        {
-            return View();
-        }
-        public async Task<IActionResult> teste()
-        {
-            return View();
         }
         // GET: Objetivoes/Details/5
         public async Task<IActionResult> Details(int? id)

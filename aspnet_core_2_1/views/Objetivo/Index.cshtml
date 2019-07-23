@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<ASPNET_Core_2_1.Models.Objetivo>
-
 @{
     ViewData["Title"] = "Mapa";
 }
@@ -7,6 +6,10 @@
     a {
         outline: none;
         color: inherit;
+    }
+
+    .bgDiferente {
+        background-color: #00b894;
     }
 </style>
 <div class="row justify-content-md-center">
@@ -20,200 +23,179 @@
                                 <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                     <div class="panel-heading" style="background-color: #99e3d4">
                                         <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | Qtd Objetivos: 2 | Qtd Planos: 10 | Qtd Metricas: 23 | Qtd Planos ativos: 7 | Desempenho: 78%</a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro</span> | <span title="Metricas"><i class="fa fa-tag"></i> @ViewBag.colPlanosFinanceiro.Count</span></a>
+                                            <p style="float: right; font-size: 18px;">98%</p>
                                         </h5>
                                     </div>
                                     <!-- MIOLO -->
                                     @foreach (var objetivo in Model)
                                     {
-                                    <div id="collapseOne" class="pt-2 panel-collapse collapse in">
-                                        <div class="col-12">
-                                            <div class="panel-group pb-2" id="accordion">
-                                                <!-- OBJETIVO 1 -->
-                                                <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                                    <div class="panel-heading" style="background-color: #99e3d4">
-                                                        <h5 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#faturamento">Aumentar Faturamento | Qtd Planos: 10 | Qtd Metricas: 23 | Qtd Planos ativos: 7 | Desempenho: 98%</a>
-                                                        </h5>
-                                                    </div>
-                                                    <!-- MIOLO -->
-                                                    <div id="faturamento" class="panel-collapse collapse in">
-                                                        <div class="panel-body">
-                                                            <div class="row">
-                                                                <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Desempenho</h5>
-                                                                            <h1 class="no-margins text-navy">R$ 88K</h1>
-                                                                            <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+
+                                        <div id="collapseOne" class="pt-2 panel-collapse collapse in">
+                                            <div class="col-12">
+                                                <div class="panel-group pb-2" id="accordion">
+                                                    <!-- OBJETIVO 1 -->
+                                                    <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                                        <div class="panel-heading" style="background-color: #99e3d4">
+                                                            <h5 class="panel-title" style="margin: 0">
+                                                                <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <i class="fa fa-tag"></i> @ViewBag.colMetrica.Count  | <i class="fa fa-tag"></i> @ViewBag.colMetrica.Count</a>
+                                                                <p style="float: right; font-size: 18px;">98%</p>
+                                                            </h5>
+                                                        </div>
+                                                        <!-- MIOLO -->
+                                                        <div id="faturamento" class="panel-collapse collapse in">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-3">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
+                                                                                <div class="row m-t-xs text-center">
+                                                                                    <div class="col-12">
+                                                                                        <h5 class="m-b-xs">Desempenho</h5>
+                                                                                        <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                                                        <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <table class="table small m-t-sm">
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <div class="small">
+                                                                                                    <strong>Sales char</strong> have evolved over the years sometimes.
+                                                                                                </div>
+                                                                                                <div class="small">
+                                                                                                    <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                                                                                                </div>
+                                                                                            </td>
+
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                    <table class="table small m-t-sm">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <div class="small">
-                                                                                        <strong>Sales char</strong> have evolved over the years sometimes.
-                                                                                    </div>
-                                                                                    <div class="small">
-                                                                                        <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                                                                                    </div>
-                                                                                </td>
-
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <a onclick="atualizarGrafico([
+                                                                    <div class="col-9">
+                                                                        <div class="row">
+                                                                            @foreach (var item in ViewBag.colMetrica)
+                                                                            {
+                                                                            <div class="col-sm-3 mb-2">
+                                                                                <a onclick="atualizarGrafico([
                     [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
                 ],
                 [
                     [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
                 ]);">
-                                                                        <div class="row m-t-xs text-center">
-                                                                            <div class="col-12">
-                                                                                <h5 class="m-b-xs">@Html.DisplayFor(modelItem => objetivo.Descricao)</h5>
-                                                                                <h1 class="no-margins text-navy">R$ @ViewBag.LkpMetrica</h1>
-                                                                                <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                                    <div class="row m-t-xs text-center">
+                                                                                        <div class="col-12">
+                                                                                            <h5 class="m-b-xs">@item.Nome</h5>
+                                                                                            <h1 class="no-margins text-navy">@item.Executado</h1>
+                                                                                            <div class="font-bold" style="color: #00b894">@item.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </a>
                                                                             </div>
+                                                                            }
                                                                         </div>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Faturamento Bebidas</h5>
-                                                                            <h1 class="no-margins text-navy">160,000</h1>
-                                                                            <div class="font-bold" style="color: #00b894">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
-                                                                        </div>
+                                                                        <!-- grafico tava aqui -->
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Lucratividade</h5>
-                                                                            <h1 class="no-margins text-navy">13%</h1>
-                                                                            <div class="font-bold" style="color: #00b894">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="flot-chart">
+                                                                            <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">ROI</h5>
-                                                                            <h1 class="no-margins text-navy">5</h1>
-                                                                            <div class="font-bold" style="color: #00b894">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Rotatividade Salão</h5>
-                                                                            <h1 class="no-margins" style="color: #d63031">15%</h1>
-                                                                            <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div class="flot-chart">
-                                                                        <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- OBJETIVO 2 -->
-                                                <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                                    <div class="panel-heading" style="background-color: #99e3d4">
-                                                        <h5 class="panel-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#faturamento">Aumentar Faturamento | Qtd Planos: 10 | Qtd Metricas: 23 | Qtd Planos ativos: 7 | Desempenho: 98%</a>
-                                                        </h5>
-                                                    </div>
-                                                    <!-- MIOLO -->
-                                                    <div id="faturamento" class="panel-collapse collapse in">
-                                                        <div class="panel-body">
-                                                            <div class="row">
-                                                                <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Desempenho</h5>
-                                                                            <h1 class="no-margins text-navy">R$ 88K</h1>
-                                                                            <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                    <!-- OBJETIVO 2 -->
+                                                    <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                                        <div class="panel-heading" style="background-color: #99e3d4">
+                                                            <h5 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#faturamento">Aumentar Faturamento | Qtd Planos: 10 | Qtd Metricas: 23 | Qtd Planos ativos: 7 | Desempenho: 98%</a>
+                                                            </h5>
+                                                        </div>
+                                                        <!-- MIOLO -->
+                                                        <div id="faturamento" class="panel-collapse collapse in">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
+                                                                        <div class="row m-t-xs text-center">
+                                                                            <div class="col-12">
+                                                                                <h5 class="m-b-xs">Desempenho</h5>
+                                                                                <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                                                <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <table class="table small m-t-sm">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <div class="small">
-                                                                                        <strong>Sales char</strong> have evolved over the years sometimes.
-                                                                                    </div>
-                                                                                    <div class="small">
-                                                                                        <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                                                                                    </div>
-                                                                                </td>
+                                                                        <table class="table small m-t-sm">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <div class="small">
+                                                                                            <strong>Sales char</strong> have evolved over the years sometimes.
+                                                                                        </div>
+                                                                                        <div class="small">
+                                                                                            <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                                                                                        </div>
+                                                                                    </td>
 
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Faturamento Lanches</h5>
-                                                                            <h1 class="no-margins text-navy">R$ 88K</h1>
-                                                                            <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="col-sm-2">
+                                                                        <div class="row m-t-xs text-center">
+                                                                            <div class="col-12">
+                                                                                <h5 class="m-b-xs">Faturamento Lanches</h5>
+                                                                                <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                                                <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Faturamento Bebidas</h5>
-                                                                            <h1 class="no-margins text-navy">160,000</h1>
-                                                                            <div class="font-bold" style="color: #00b894">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                    <div class="col-sm-2">
+                                                                        <div class="row m-t-xs text-center">
+                                                                            <div class="col-12">
+                                                                                <h5 class="m-b-xs">Faturamento Bebidas</h5>
+                                                                                <h1 class="no-margins text-navy">160,000</h1>
+                                                                                <div class="font-bold" style="color: #00b894">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Lucratividade</h5>
-                                                                            <h1 class="no-margins text-navy">13%</h1>
-                                                                            <div class="font-bold" style="color: #00b894">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                    <div class="col-sm-2">
+                                                                        <div class="row m-t-xs text-center">
+                                                                            <div class="col-12">
+                                                                                <h5 class="m-b-xs">Lucratividade</h5>
+                                                                                <h1 class="no-margins text-navy">13%</h1>
+                                                                                <div class="font-bold" style="color: #00b894">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">ROI</h5>
-                                                                            <h1 class="no-margins text-navy">5</h1>
-                                                                            <div class="font-bold" style="color: #00b894">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                    <div class="col-sm-2">
+                                                                        <div class="row m-t-xs text-center">
+                                                                            <div class="col-12">
+                                                                                <h5 class="m-b-xs">ROI</h5>
+                                                                                <h1 class="no-margins text-navy">5</h1>
+                                                                                <div class="font-bold" style="color: #00b894">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <div class="row m-t-xs text-center">
-                                                                        <div class="col-12">
-                                                                            <h5 class="m-b-xs">Rotatividade Salão</h5>
-                                                                            <h1 class="no-margins" style="color: #d63031">15%</h1>
-                                                                            <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                    <div class="col-sm-2">
+                                                                        <div class="row m-t-xs text-center">
+                                                                            <div class="col-12">
+                                                                                <h5 class="m-b-xs">Rotatividade Salão</h5>
+                                                                                <h1 class="no-margins" style="color: #d63031">15%</h1>
+                                                                                <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
 
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div class="flot-chart">
-                                                                        <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="flot-chart">
+                                                                            <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -222,7 +204,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     }
                                 </div>
                             </div>
@@ -1013,6 +994,11 @@
     </environment>
 
     <script type="text/javascript">
+        $('.col-sm-3').click(function (e) {
+            e.preventDefault();
+            $('.col-sm-3').removeClass('bgDiferente');
+            $(this).addClass('bgDiferente');
+        });
         function atualizarGrafico(data1, data2) {
             $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
                 data1, data2
