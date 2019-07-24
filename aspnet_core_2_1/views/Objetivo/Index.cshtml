@@ -12,6 +12,9 @@
         background-color: #00b894;
     }
 </style>
+<script>
+    alert('@ViewBag.colDesempenhoFinanceiro.');
+</script>
 <div class="row justify-content-md-center">
     <div class="col-lg-11">
         <div class="ibox">
@@ -23,8 +26,9 @@
                                 <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                     <div class="panel-heading" style="background-color: #99e3d4">
                                         <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro</span> | <span title="Metricas"><i class="fa fa-tag"></i> @ViewBag.colPlanosFinanceiro.Count</span></a>
-                                            <p style="float: right; font-size: 18px;">98%</p>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Metricas"><i class="fa fa-tag"></i> @ViewBag.colMetricaFinanceiro.Count</span></a>
+                                            <p style="float: right; font-size: 18px;">
+                                            </p>
                                         </h5>
                                     </div>
                                     <!-- MIOLO -->
@@ -38,7 +42,7 @@
                                                     <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                                         <div class="panel-heading" style="background-color: #99e3d4">
                                                             <h5 class="panel-title" style="margin: 0">
-                                                                <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <i class="fa fa-tag"></i> @ViewBag.colMetrica.Count  | <i class="fa fa-tag"></i> @ViewBag.colMetrica.Count</a>
+                                                                <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <i class="fa fa-tag"></i> @ViewBag.colMetricaFinanceiro.Count | <i class="fa fa-tag"></i> @ViewBag.colMetricaFinanceiro.Count</a>
                                                                 <p style="float: right; font-size: 18px;">98%</p>
                                                             </h5>
                                                         </div>

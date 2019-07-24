@@ -42,7 +42,56 @@ namespace MEUNEGOCIO.Controllers
             var colObjetivoAprendizado = _context.Objetivo.Where(o => o.LkpPerspectiva == bscAprendizado.Id).ToList<Objetivo>();
 
             /* Coleção de metricas por camada */
-            var colMetricaFinanceiro = _context.Metrica.Any(m => m.LkpObjetivo == colObjetivoFinanceiro.Id);
+            var colMetricaFinanceiro = new List<Metrica>();
+            foreach (var itemObj in colObjetivoFinanceiro)
+            {
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id).ToList<Metrica>())
+                {
+                    colMetricaFinanceiro.Add(objMetrica);
+                }
+            }
+            
+            var colMetricaClientes = new List<Metrica>();
+            foreach (var itemObj in colObjetivoClientes)
+            {
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id).ToList<Metrica>())
+                {
+                    colMetricaClientes.Add(objMetrica);
+                }
+            }
+
+            var colMetricaProcessoInterno = new List<Metrica>();
+            foreach (var itemObj in colObjetivoProcessoInterno)
+            {
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id).ToList<Metrica>())
+                {
+                    colMetricaProcessoInterno.Add(objMetrica);
+                }
+            }
+
+            var colMetricaAprendizado = new List<Metrica>();
+            foreach (var itemObj in colObjetivoAprendizado)
+            {
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id).ToList<Metrica>())
+                {
+                    colMetricaAprendizado.Add(objMetrica);
+                }
+            }
+
+            /* Desempenho por camada */
+            var colDesempenhoFinanceiro = new List<Metrica>();
+            foreach (var itemObj in colObjetivoFinanceiro)
+            {
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO").ToList<Metrica>())
+                {
+                    colDesempenhoFinanceiro.Add(objMetrica);
+                }
+            }
+            /* Definição das ViewBags */
+            ViewBag.colPlanosFinanceiro = colPlanosFinanceiro;  
+            ViewBag.colObjetivoFinanceiro = colObjetivoFinanceiro;
+            ViewBag.colMetricaFinanceiro = colMetricaFinanceiro;
+            ViewBag.colDesempenhoFinanceiro = colDesempenhoFinanceiro;
             return View(await meunegocioContext.ToListAsync());
         }
         // GET: Objetivoes/Details/5
