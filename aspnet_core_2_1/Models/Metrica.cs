@@ -20,7 +20,7 @@ namespace ASPNET_Core_2_1.Models
         public short? Peso { get; set; }
         public bool? Template { get; set; }
         public decimal? Planejado { get; set; }
-        public decimal? Executado { get; set; }
+        public decimal Executado { get; set; }
         public decimal? Razao { get; set; }
         public string ParecerDescritivo { get; set; }
         public int? LkpObjetivo { get; set; }

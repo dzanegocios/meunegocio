@@ -1,6 +1,22 @@
 ﻿@model IEnumerable<ASPNET_Core_2_1.Models.Objetivo>
+@using ASPNET_Core_2_1.Models
 @{
     ViewData["Title"] = "Mapa";
+    List<decimal> numeroDesempenhoFinanceiro = new List<decimal>();
+    foreach (var numero in ViewBag.numeroDesempenhoFinanceiro)
+    {
+        numeroDesempenhoFinanceiro.Add(numero);
+    }
+    int i = 0;
+
+    List<Metrica> colMetricaFinanceiro = new List<Metrica>();
+    foreach (var metrica in ViewBag.colMetricaFinanceiro)
+    {
+        colMetricaFinanceiro.Add(metrica);
+    }
+    DateTime mesPassado = DateTime.Today;
+    
+
 }
 <style>
     a {
@@ -12,9 +28,7 @@
         background-color: #00b894;
     }
 </style>
-<script>
-    alert('@ViewBag.colDesempenhoFinanceiro.');
-</script>
+
 <div class="row justify-content-md-center">
     <div class="col-lg-11">
         <div class="ibox">
@@ -26,15 +40,16 @@
                                 <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                     <div class="panel-heading" style="background-color: #99e3d4">
                                         <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Metricas"><i class="fa fa-tag"></i> @ViewBag.colMetricaFinanceiro.Count</span></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colMetricaFinanceiro.Count</span></a>
                                             <p style="float: right; font-size: 18px;">
+                                                @ViewBag.colMediaDesempenhoFinanceiro%
                                             </p>
                                         </h5>
                                     </div>
                                     <!-- MIOLO -->
                                     @foreach (var objetivo in Model)
                                     {
-
+                                        
                                         <div id="collapseOne" class="pt-2 panel-collapse collapse in">
                                             <div class="col-12">
                                                 <div class="panel-group pb-2" id="accordion">
@@ -42,8 +57,8 @@
                                                     <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                                         <div class="panel-heading" style="background-color: #99e3d4">
                                                             <h5 class="panel-title" style="margin: 0">
-                                                                <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <i class="fa fa-tag"></i> @ViewBag.colMetricaFinanceiro.Count | <i class="fa fa-tag"></i> @ViewBag.colMetricaFinanceiro.Count</a>
-                                                                <p style="float: right; font-size: 18px;">98%</p>
+                                                                <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <span title="Métricas"><i class="fa fa-tag"></i> @colMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id).Count()</span></a>
+                                                                <p style="float: right; font-size: 18px;">@Math.Round(numeroDesempenhoFinanceiro[i])%</p>
                                                             </h5>
                                                         </div>
                                                         <!-- MIOLO -->
@@ -56,7 +71,7 @@
                                                                                 <div class="row m-t-xs text-center">
                                                                                     <div class="col-12">
                                                                                         <h5 class="m-b-xs">Desempenho</h5>
-                                                                                        <h1 class="no-margins text-navy">R$ 88K</h1>
+                                                                                        <h1 class="no-margins text-navy"></h1>
                                                                                         <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                                                     </div>
                                                                                 </div>
@@ -80,7 +95,7 @@
                                                                     </div>
                                                                     <div class="col-9">
                                                                         <div class="row">
-                                                                            @foreach (var item in ViewBag.colMetrica)
+                                                                            @foreach (var item in colMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id))
                                                                             {
                                                                             <div class="col-sm-3 mb-2">
                                                                                 <a onclick="atualizarGrafico([
@@ -93,7 +108,14 @@
                                                                                         <div class="col-12">
                                                                                             <h5 class="m-b-xs">@item.Nome</h5>
                                                                                             <h1 class="no-margins text-navy">@item.Executado</h1>
-                                                                                            <div class="font-bold" style="color: #00b894">@item.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
+                                                                                            <div class="font-bold" style="color: #00b894">@item.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i>
+                                                                                            @if  (item.Data == mesPassado)
+                                                                                            {
+                                                                                                var MetricaPassada = (Metrica)(colMetricaFinanceiro.Where(m => m.Id == objetivo.Id && m.Data == mesPassado));
+                                                                                                double razao = (double)(item.Razao / MetricaPassada.Razao);
+                                                                                                <p>razao</p>
+                                                                                            }
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
@@ -114,312 +136,14 @@
                                                         </div>
                                                     </div>
                                                     <!-- OBJETIVO 2 -->
-                                                    <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                                        <div class="panel-heading" style="background-color: #99e3d4">
-                                                            <h5 class="panel-title">
-                                                                <a data-toggle="collapse" data-parent="#accordion" href="#faturamento">Aumentar Faturamento | Qtd Planos: 10 | Qtd Metricas: 23 | Qtd Planos ativos: 7 | Desempenho: 98%</a>
-                                                            </h5>
-                                                        </div>
-                                                        <!-- MIOLO -->
-                                                        <div id="faturamento" class="panel-collapse collapse in">
-                                                            <div class="panel-body">
-                                                                <div class="row">
-                                                                    <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
-                                                                        <div class="row m-t-xs text-center">
-                                                                            <div class="col-12">
-                                                                                <h5 class="m-b-xs">Desempenho</h5>
-                                                                                <h1 class="no-margins text-navy">R$ 88K</h1>
-                                                                                <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <table class="table small m-t-sm">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td>
-                                                                                        <div class="small">
-                                                                                            <strong>Sales char</strong> have evolved over the years sometimes.
-                                                                                        </div>
-                                                                                        <div class="small">
-                                                                                            <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                                                                                        </div>
-                                                                                    </td>
 
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <div class="row m-t-xs text-center">
-                                                                            <div class="col-12">
-                                                                                <h5 class="m-b-xs">Faturamento Lanches</h5>
-                                                                                <h1 class="no-margins text-navy">R$ 88K</h1>
-                                                                                <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <div class="row m-t-xs text-center">
-                                                                            <div class="col-12">
-                                                                                <h5 class="m-b-xs">Faturamento Bebidas</h5>
-                                                                                <h1 class="no-margins text-navy">160,000</h1>
-                                                                                <div class="font-bold" style="color: #00b894">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <div class="row m-t-xs text-center">
-                                                                            <div class="col-12">
-                                                                                <h5 class="m-b-xs">Lucratividade</h5>
-                                                                                <h1 class="no-margins text-navy">13%</h1>
-                                                                                <div class="font-bold" style="color: #00b894">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <div class="row m-t-xs text-center">
-                                                                            <div class="col-12">
-                                                                                <h5 class="m-b-xs">ROI</h5>
-                                                                                <h1 class="no-margins text-navy">5</h1>
-                                                                                <div class="font-bold" style="color: #00b894">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <div class="row m-t-xs text-center">
-                                                                            <div class="col-12">
-                                                                                <h5 class="m-b-xs">Rotatividade Salão</h5>
-                                                                                <h1 class="no-margins" style="color: #d63031">15%</h1>
-                                                                                <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i> 23%</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="flot-chart">
-                                                                            <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        i = i + 1;
                                     }
                                 </div>
                             </div>
-                            <!-- 2 accordion -->
-                            <div class="panel-group" id="accordion2">
-                                <div class="panel panel-default" style="border: 1px solid #d63031; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                    <div class="panel-heading" style="background-color: #d69797">
-                                        <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Collapsible Group Item #1</a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse in">
-                                        <div class="panel-body">
-                                            <div class="row">
-                                                <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
-                                                    <div class="row m-t-xs text-center">
-                                                        <div class="col-12">
-                                                            <h5 class="m-b-xs">Faturamento Total</h5>
-                                                            <h1 class="no-margins" style="color: #d63031"> R$ 131K</h1>
-                                                            <div class="font-bold" style="color: #d63031">94% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                        </div>
-                                                    </div>
-                                                    <table class="col-12 table small m-t-sm">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>142</strong> Projects
-
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>61</strong> Comments
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>154</strong> Companies
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="row m-t-xs text-center">
-                                                        <div class="col-12">
-                                                            <h5 class="m-b-xs">Faturamento Lanches</h5>
-                                                            <h1 class="no-margins" style="color: #d63031">R$ 88K</h1>
-                                                            <div class="font-bold text-navy">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i> </div>
-                                                        </div>
-                                                    </div>
-                                                    <table class="table small m-t-sm">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>142</strong> Projects
-
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>61</strong> Comments
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>154</strong> Companies
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="row m-t-xs text-center">
-                                                        <div class="col-12">
-                                                            <h5 class="m-b-xs">Faturamento Bebidas</h5>
-                                                            <h1 class="no-margins text-navy">160,000</h1>
-                                                            <div class="font-bold text-navy">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                        </div>
-                                                    </div>
-                                                    <table class="table small m-t-sm">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>142</strong> Projects
-
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>61</strong> Comments
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>154</strong> Companies
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="row m-t-xs text-center">
-                                                        <div class="col-12">
-                                                            <h5 class="m-b-xs">Lucratividade</h5>
-                                                            <h1 class="no-margins text-navy">13%</h1>
-                                                            <div class="font-bold text-navy">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                        </div>
-                                                    </div>
-                                                    <table class="table small m-t-sm">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>142</strong> Projects
-
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>61</strong> Comments
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>154</strong> Companies
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="row m-t-xs text-center">
-                                                        <div class="col-12">
-                                                            <h5 class="m-b-xs">ROI</h5>
-                                                            <h1 class="no-margins text-navy">5</h1>
-                                                            <div class="font-bold text-navy">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                        </div>
-                                                    </div>
-                                                    <table class="table small m-t-sm">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>142</strong> Projects
-
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>61</strong> Comments
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>154</strong> Companies
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="row m-t-xs text-center">
-                                                        <div class="col-12">
-                                                            <h5 class="m-b-xs">Rotatividade Salão</h5>
-                                                            <h1 class="no-margins" style="color: #d63031">15%</h1>
-                                                            <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                        </div>
-                                                    </div>
-                                                    <table class="table small m-t-sm">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>142</strong> Projects
-
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>61</strong> Comments
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>154</strong> Companies
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="small float-left col-md-3 m-l-lg m-t-md">
-                                                        <strong>Sales char</strong> have evolved over the years sometimes.
-                                                    </div>
-                                                    <div class="small float-right col-md-3 m-t-md text-right">
-                                                        <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                                                    </div>
-                                                    <div class="flot-chart">
-                                                        <div class="flot-chart-content" id="flot-dashboard1-chart"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -434,547 +158,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="tabs-container">
-            <ul class="nav nav-tabs">
-                <li><a class="nav-link active" data-toggle="tab" href="#tab-1">1</a></li>
-                <li><a class="nav-link" data-toggle="tab" href="#tab-2">2</a></li>
-            </ul>
-            <!-- 1 accordion -->
-            <div class="tab-content">
-                <!-- 1 -->
-                <div id="tab-1" class="tab-pane active">
-                    <div class="panel-body">
-                        <div class="panel-group" id="accordion">
-                            <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                <div class="panel-heading" style="background-color: #99e3d4">
-                                    <h5 class="panel-title">
-                                        <a class="removeOutline" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Collapsible Group Item #1</a>
-                                    </h5>
-                                </div>
-                                <div id="collapseOne" class="panel-collapse collapse in">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Desempenho</h5>
-                                                        <h1 class="no-margins text-navy">R$ 88K</h1>
-                                                        <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Faturamento Lanches</h5>
-                                                        <h1 class="no-margins text-navy">R$ 88K</h1>
-                                                        <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Faturamento Bebidas</h5>
-                                                        <h1 class="no-margins text-navy">160,000</h1>
-                                                        <div class="font-bold" style="color: #00b894">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Lucratividade</h5>
-                                                        <h1 class="no-margins text-navy">13%</h1>
-                                                        <div class="font-bold" style="color: #00b894">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">ROI</h5>
-                                                        <h1 class="no-margins text-navy">5</h1>
-                                                        <div class="font-bold" style="color: #00b894">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Rotatividade Salão</h5>
-                                                        <h1 class="no-margins" style="color: #d63031">15%</h1>
-                                                        <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="small float-left col-md-3 m-l-lg m-t-md">
-                                                    <strong>Sales char</strong> have evolved over the years sometimes.
-                                                </div>
-                                                <div class="small float-right col-md-3 m-t-md text-right">
-                                                    <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                                                </div>
-                                                <div class="flot-chart">
-                                                    <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 2 accordion -->
-                        <div class="panel-group" id="accordion2">
-                            <div class="panel panel-default" style="border: 1px solid #d63031; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                <div class="panel-heading" style="background-color: #d69797">
-                                    <h5 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">Collapsible Group Item #1</a>
-                                    </h5>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse in">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-sm-2 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Faturamento Total</h5>
-                                                        <h1 class="no-margins" style="color: #d63031"> R$ 131K</h1>
-                                                        <div class="font-bold" style="color: #d63031">94% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="col-12 table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Faturamento Lanches</h5>
-                                                        <h1 class="no-margins" style="color: #d63031">R$ 88K</h1>
-                                                        <div class="font-bold text-navy">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Faturamento Bebidas</h5>
-                                                        <h1 class="no-margins text-navy">160,000</h1>
-                                                        <div class="font-bold text-navy">103% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Lucratividade</h5>
-                                                        <h1 class="no-margins text-navy">13%</h1>
-                                                        <div class="font-bold text-navy">87% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">ROI</h5>
-                                                        <h1 class="no-margins text-navy">5</h1>
-                                                        <div class="font-bold text-navy">100% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="row m-t-xs text-center">
-                                                    <div class="col-12">
-                                                        <h5 class="m-b-xs">Rotatividade Salão</h5>
-                                                        <h1 class="no-margins" style="color: #d63031">15%</h1>
-                                                        <div class="font-bold" style="color: #d63031">47% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                    </div>
-                                                </div>
-                                                <table class="table small m-t-sm">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>142</strong> Projects
-
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>61</strong> Comments
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <strong>154</strong> Companies
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="small float-left col-md-3 m-l-lg m-t-md">
-                                                    <strong>Sales char</strong> have evolved over the years sometimes.
-                                                </div>
-                                                <div class="small float-right col-md-3 m-t-md text-right">
-                                                    <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                                                </div>
-                                                <div class="flot-chart">
-                                                    <div class="flot-chart-content" id="flot-dashboard1-chart"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 2 -->
-                <div id="tab-2" class="tab-pane">
-                    <div class="panel-body">
-                        <div class="tabs-container">
-                            <div class="tabs-left">
-                                <ul class="nav nav-tabs">
-                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-21">21</a></li>
-                                    <li><a class="nav-link" data-toggle="tab" href="#tab-22">22</a></li>
-                                </ul>
-                                <div class="tab-content ">
-                                    <!-- 21 -->
-                                    <div id="tab-21" class="tab-pane active">
-                                        <div class="panel-body">
-                                            <div class="tabs-container">
-                                                <ul class="nav nav-tabs">
-                                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-211">211</a></li>
-                                                    <li><a class="nav-link" data-toggle="tab" href="#tab-212">212</a></li>
-                                                </ul>
-                                                <div class="tab-content ">
-                                                    <!-- 211 -->
-                                                    <div id="tab-211" class="tab-pane active">
-                                                        <div class="panel-body">
-                                                            <strong>211</strong>
-
-                                                            <p>
-                                                                A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-                                                                existence in this spot, which was created for the bliss of souls like mine.
-                                                            </p>
-
-                                                            <p>
-                                                                I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                                                the present moment; and yet I feel that I never was a greater artist than now. When.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 212 -->
-                                                    <div id="tab-212" class="tab-pane">
-                                                        <div class="panel-body">
-                                                            <strong>212</strong>
-
-                                                            <p>
-                                                                Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                                                and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath
-                                                            </p>
-
-                                                            <p>
-                                                                I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                                                sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- 22 -->
-                                    <div id="tab-22" class="tab-pane">
-                                        <div class="panel-body">
-                                            <div class="tabs-container">
-                                                <ul class="nav nav-tabs">
-                                                    <li><a class="nav-link active" data-toggle="tab" href="#tab-221">221</a></li>
-                                                    <li><a class="nav-link" data-toggle="tab" href="#tab-222">222</a></li>
-                                                </ul>
-                                                <div class="tab-content ">
-                                                    <!-- 221 -->
-                                                    <div id="tab-221" class="tab-pane active">
-                                                        <div class="panel-body">
-                                                            <strong>221</strong>
-
-                                                            <p>
-                                                                A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of
-                                                                existence in this spot, which was created for the bliss of souls like mine.
-                                                            </p>
-
-                                                            <p>
-                                                                I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at
-                                                                the present moment; and yet I feel that I never was a greater artist than now. When.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 222 -->
-                                                    <div id="tab-222" class="tab-pane">
-                                                        <div class="panel-body">
-                                                            <strong>222</strong>
-
-                                                            <p>
-                                                                Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                                                and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath
-                                                            </p>
-
-                                                            <p>
-                                                                I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                                                sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

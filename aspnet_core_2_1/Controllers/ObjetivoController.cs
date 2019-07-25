@@ -21,8 +21,6 @@ namespace MEUNEGOCIO.Controllers
         public async Task<IActionResult> Index()
         {
             var meunegocioContext = _context.Objetivo.Include(o => o.LkpMetricaNavigation).Include(o => o.LkpPerspectivaNavigation).Include(o => o.LkpPessoaNavigation).Include(o => o.LkpResponsavelNavigation);
-            ViewBag.colMetrica = _context.Metrica.Include(m => m.LkpMetricaNavigation).Include(m => m.LkpObjetivoNavigation).Include(m => m.LkpPessoaNavigation).Include(m => m.LkpPlanoAcaoNavigation).Include(m => m.LkpStatusDetalheTarefaNavigation).Include(m => m.LkpTarefaStatusNavigation).ToList<Metrica>();
-
             /* Camadas BSC */
             var bscFinanceiro = _context.Bsc.Where(b => b.Nome == "Financeiro").ToList<Bsc>().First();
             var bscClientes = _context.Bsc.Where(b => b.Nome == "Clientes").ToList<Bsc>().First();
@@ -80,18 +78,22 @@ namespace MEUNEGOCIO.Controllers
 
             /* Desempenho por camada */
             var colDesempenhoFinanceiro = new List<Metrica>();
+            List<decimal> numeroDesempenhoFinanceiro = new List<decimal>();
             foreach (var itemObj in colObjetivoFinanceiro)
             {
                 foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO").ToList<Metrica>())
                 {
                     colDesempenhoFinanceiro.Add(objMetrica);
+                    numeroDesempenhoFinanceiro.Add(objMetrica.Executado);
                 }
             }
             /* Definição das ViewBags */
             ViewBag.colPlanosFinanceiro = colPlanosFinanceiro;  
             ViewBag.colObjetivoFinanceiro = colObjetivoFinanceiro;
-            ViewBag.colMetricaFinanceiro = colMetricaFinanceiro;
             ViewBag.colDesempenhoFinanceiro = colDesempenhoFinanceiro;
+            ViewBag.numeroDesempenhoFinanceiro = numeroDesempenhoFinanceiro;
+            ViewBag.colMediaDesempenhoFinanceiro = Math.Round(numeroDesempenhoFinanceiro.Average());
+            ViewBag.colMetricaFinanceiro = _context.Metrica.Where(m => m.Nome != "DESEMPENHO").Include(m => m.LkpMetricaNavigation).Include(m => m.LkpObjetivoNavigation).Include(m => m.LkpPessoaNavigation).Include(m => m.LkpPlanoAcaoNavigation).Include(m => m.LkpStatusDetalheTarefaNavigation).Include(m => m.LkpTarefaStatusNavigation).ToList<Metrica>();
             return View(await meunegocioContext.ToListAsync());
         }
         // GET: Objetivoes/Details/5
