@@ -93,7 +93,8 @@ namespace MEUNEGOCIO.Controllers
             ViewBag.colDesempenhoFinanceiro = colDesempenhoFinanceiro;
             ViewBag.numeroDesempenhoFinanceiro = numeroDesempenhoFinanceiro;
             ViewBag.colMediaDesempenhoFinanceiro = Math.Round(numeroDesempenhoFinanceiro.Average());
-            ViewBag.colMetricaFinanceiro = _context.Metrica.Where(m => m.Nome != "DESEMPENHO").Include(m => m.LkpMetricaNavigation).Include(m => m.LkpObjetivoNavigation).Include(m => m.LkpPessoaNavigation).Include(m => m.LkpPlanoAcaoNavigation).Include(m => m.LkpStatusDetalheTarefaNavigation).Include(m => m.LkpTarefaStatusNavigation).ToList<Metrica>();
+            ViewBag.colTemplateMetricaFinanceiro = _context.Metrica.Where(m => m.Nome != "DESEMPENHO" && m.Template == true).Include(m => m.LkpMetricaNavigation).Include(m => m.LkpObjetivoNavigation).Include(m => m.LkpPessoaNavigation).Include(m => m.LkpPlanoAcaoNavigation).Include(m => m.LkpStatusDetalheTarefaNavigation).Include(m => m.LkpTarefaStatusNavigation).ToList<Metrica>();
+            ViewBag.colMetrica = _context.Metrica.Where(m => m.LkpMetrica != null).ToList<Metrica>();
             return View(await meunegocioContext.ToListAsync());
         }
         // GET: Objetivoes/Details/5

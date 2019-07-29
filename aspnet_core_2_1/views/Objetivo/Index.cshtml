@@ -9,13 +9,25 @@
     }
     int i = 0;
 
-    List<Metrica> colMetricaFinanceiro = new List<Metrica>();
-    foreach (var metrica in ViewBag.colMetricaFinanceiro)
+    List<Metrica> colTemplateMetricaFinanceiro = new List<Metrica>();
+    foreach (var metrica in ViewBag.colTemplateMetricaFinanceiro)
     {
-        colMetricaFinanceiro.Add(metrica);
+        colTemplateMetricaFinanceiro.Add(metrica);
+    }
+
+    List<Metrica> colDesempenhoFinanceiro = new List<Metrica>();
+    foreach (var metrica in ViewBag.colDesempenhoFinanceiro)
+    {
+        colDesempenhoFinanceiro.Add(metrica);
+    }
+
+    List<Metrica> colMetrica = new List<Metrica>();
+    foreach (var metrica in ViewBag.colMetrica)
+    {
+        colMetrica.Add(metrica);
     }
     DateTime mesPassado = DateTime.Today;
-    
+
 
 }
 <style>
@@ -40,28 +52,26 @@
                                 <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                     <div class="panel-heading" style="background-color: #99e3d4">
                                         <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colMetricaFinanceiro.Count</span></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colTemplateMetricaFinanceiro.Count</span></a>
                                             <p style="float: right; font-size: 18px;">
                                                 @ViewBag.colMediaDesempenhoFinanceiro%
                                             </p>
                                         </h5>
                                     </div>
-                                    <!-- MIOLO -->
+                                    <!-- Percorre objetivos -->
                                     @foreach (var objetivo in Model)
                                     {
                                         
                                         <div id="collapseOne" class="pt-2 panel-collapse collapse in">
                                             <div class="col-12">
                                                 <div class="panel-group pb-2" id="accordion">
-                                                    <!-- OBJETIVO 1 -->
                                                     <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                                         <div class="panel-heading" style="background-color: #99e3d4">
                                                             <h5 class="panel-title" style="margin: 0">
-                                                                <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <span title="Métricas"><i class="fa fa-tag"></i> @colMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id).Count()</span></a>
+                                                                <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <span title="Métricas"><i class="fa fa-tag"></i> @colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id).Count()</span></a>
                                                                 <p style="float: right; font-size: 18px;">@Math.Round(numeroDesempenhoFinanceiro[i])%</p>
                                                             </h5>
                                                         </div>
-                                                        <!-- MIOLO -->
                                                         <div id="faturamento" class="panel-collapse collapse in">
                                                             <div class="panel-body">
                                                                 <div class="row">
@@ -72,7 +82,7 @@
                                                                                     <div class="col-12">
                                                                                         <h5 class="m-b-xs">Desempenho</h5>
                                                                                         <h1 class="no-margins text-navy"></h1>
-                                                                                        <div class="font-bold" style="color: #00b894">96% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                                                        <div class="font-bold" style="color: #00b894">@colDesempenhoFinanceiro[i].Executado% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <table class="table small m-t-sm">
@@ -95,8 +105,11 @@
                                                                     </div>
                                                                     <div class="col-9">
                                                                         <div class="row">
-                                                                            @foreach (var item in colMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id))
-                                                                            {
+                                                                            @foreach (var item in colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id))
+                                                                                {
+                                                                                    var objMetrica = colMetrica.Where(m => m.LkpMetrica == item.Id).FirstOrDefault();
+                                                                                    @if (objMetrica != null)
+                                                                                    {
                                                                             <div class="col-sm-3 mb-2">
                                                                                 <a onclick="atualizarGrafico([
                     [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
@@ -106,21 +119,26 @@
                 ]);">
                                                                                     <div class="row m-t-xs text-center">
                                                                                         <div class="col-12">
-                                                                                            <h5 class="m-b-xs">@item.Nome</h5>
-                                                                                            <h1 class="no-margins text-navy">@item.Executado</h1>
-                                                                                            <div class="font-bold" style="color: #00b894">@item.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i>
-                                                                                            @if  (item.Data == mesPassado)
+                                                                                            <h5 class="m-b-xs">@objMetrica.Nome</h5>
+                                                                                            <h1 class="no-margins text-navy">@objMetrica.Executado</h1>
+                                                                                            <div class="font-bold" style="color: #00b894">@objMetrica.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i>
+                                                                                            @if (objMetrica.Data == mesPassado)
                                                                                             {
-                                                                                                var MetricaPassada = (Metrica)(colMetricaFinanceiro.Where(m => m.Id == objetivo.Id && m.Data == mesPassado));
-                                                                                                double razao = (double)(item.Razao / MetricaPassada.Razao);
-                                                                                                <p>razao</p>
+                                                                                                var MetricaPassada = (colTemplateMetricaFinanceiro.Where(m => m.Id == objetivo.Id && m.Data == mesPassado)).FirstOrDefault();
+                                                                                                if (MetricaPassada != null)
+                                                                                                {
+                                                                                                    double razao = (double)(objMetrica.Razao / MetricaPassada.Razao);
+                                                                                                    <p>@razao</p> 
+                                                                                                }
+                                                                                                
                                                                                             }
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </a>
                                                                             </div>
-                                                                            }
+                                                                                    }
+                                                                                }
                                                                         </div>
                                                                         <!-- grafico tava aqui -->
                                                                     </div>
