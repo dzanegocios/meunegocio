@@ -41,37 +41,45 @@ namespace MEUNEGOCIO.Controllers
 
             /* Coleção de metricas template por camada */
             List<Metrica> colTemplateMetricaFinanceiro = new List<Metrica>();
+            int? colFinanceiroMetricaPesoTotal = 0;
             foreach (var itemObj in colObjetivoFinanceiro)
             {
                 foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
+                    colFinanceiroMetricaPesoTotal = colFinanceiroMetricaPesoTotal + objMetrica.Peso;
                     colTemplateMetricaFinanceiro.Add(objMetrica);
                 }
             }
             
             var colTemplateMetricaClientes = new List<Metrica>();
+            int? colClienteMetricaPesoTotal = 0;
             foreach (var itemObj in colObjetivoClientes)
             {
                 foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
+                    colClienteMetricaPesoTotal = colClienteMetricaPesoTotal + objMetrica.Peso;
                     colTemplateMetricaClientes.Add(objMetrica);
                 }
             }
 
             var colTemplateMetricaProcessoInterno = new List<Metrica>();
+            int? colProcessoInternoMetricaPesoTotal = 0;
             foreach (var itemObj in colObjetivoProcessoInterno)
             {
                 foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
+                    colProcessoInternoMetricaPesoTotal = colProcessoInternoMetricaPesoTotal + objMetrica.Peso;
                     colTemplateMetricaProcessoInterno.Add(objMetrica);
                 }
             }
 
             var colTemplateMetricaAprendizado = new List<Metrica>();
+            int? colAprendizadoMetricaPesoTotal = 0;
             foreach (var itemObj in colObjetivoAprendizado)
             {
                 foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
+                    colAprendizadoMetricaPesoTotal = colAprendizadoMetricaPesoTotal + objMetrica.Peso;
                     colTemplateMetricaAprendizado.Add(objMetrica);
                 }
             }
@@ -127,14 +135,14 @@ namespace MEUNEGOCIO.Controllers
 
             /* Cálculo da média ponderada do desempenho financeiro */
             decimal? executado = 0, planejado = 0, peso = 0;
-            var colMetricaPesoTotal = 0;
+            
             foreach (var itemMetricaTemplateDesempenho in colTemplateMetricaFinanceiro)
             {
                 peso = itemMetricaTemplateDesempenho.Peso;
                 var itemMetricaDesempenho = _context.Metrica.Where(m => m.LkpMetrica == itemMetricaTemplateDesempenho.Id).First();
                 if (itemMetricaDesempenho.Razao > 0)
                 {
-                    executado = executado + itemMetricaDesempenho.Razao * peso / 0;
+                    executado = executado + itemMetricaDesempenho.Razao * peso / colFinanceiroMetricaPesoTotal * 100;
                 }
             }
             /* Cálculo da média ponderada do desempenho cliente */
