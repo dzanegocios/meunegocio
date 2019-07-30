@@ -52,7 +52,7 @@
                                 <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                     <div class="panel-heading" style="background-color: #99e3d4">
                                         <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colTemplateMetricaFinanceiro.Count</span></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colPlanosFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colTemplateMetricaFinanceiro.Count</span></a>
                                             <p style="float: right; font-size: 18px;">
                                                 @ViewBag.colMediaDesempenhoFinanceiro%
                                             </p>
@@ -82,7 +82,7 @@
                                                                                     <div class="col-12">
                                                                                         <h5 class="m-b-xs">Desempenho</h5>
                                                                                         <h1 class="no-margins text-navy"></h1>
-                                                                                        <div class="font-bold" style="color: #00b894">@colDesempenhoFinanceiro[i].Executado% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                                                        <div class="font-bold" style="color: #00b894">@Math.Round(numeroDesempenhoFinanceiro[i])% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <table class="table small m-t-sm">

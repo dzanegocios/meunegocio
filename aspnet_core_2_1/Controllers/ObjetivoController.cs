@@ -39,40 +39,40 @@ namespace MEUNEGOCIO.Controllers
             var colObjetivoProcessoInterno = _context.Objetivo.Where(o => o.LkpPerspectiva == bscProcessoInterno.Id).ToList<Objetivo>();
             var colObjetivoAprendizado = _context.Objetivo.Where(o => o.LkpPerspectiva == bscAprendizado.Id).ToList<Objetivo>();
 
-            /* Coleção de metricas por camada */
-            var colMetricaFinanceiro = new List<Metrica>();
+            /* Coleção de metricas template por camada */
+            List<Metrica> colTemplateMetricaFinanceiro = new List<Metrica>();
             foreach (var itemObj in colObjetivoFinanceiro)
             {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id).ToList<Metrica>())
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
-                    colMetricaFinanceiro.Add(objMetrica);
+                    colTemplateMetricaFinanceiro.Add(objMetrica);
                 }
             }
             
-            var colMetricaClientes = new List<Metrica>();
+            var colTemplateMetricaClientes = new List<Metrica>();
             foreach (var itemObj in colObjetivoClientes)
             {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id).ToList<Metrica>())
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
-                    colMetricaClientes.Add(objMetrica);
+                    colTemplateMetricaClientes.Add(objMetrica);
                 }
             }
 
-            var colMetricaProcessoInterno = new List<Metrica>();
+            var colTemplateMetricaProcessoInterno = new List<Metrica>();
             foreach (var itemObj in colObjetivoProcessoInterno)
             {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id).ToList<Metrica>())
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
-                    colMetricaProcessoInterno.Add(objMetrica);
+                    colTemplateMetricaProcessoInterno.Add(objMetrica);
                 }
             }
 
-            var colMetricaAprendizado = new List<Metrica>();
+            var colTemplateMetricaAprendizado = new List<Metrica>();
             foreach (var itemObj in colObjetivoAprendizado)
             {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id).ToList<Metrica>())
+                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
-                    colMetricaAprendizado.Add(objMetrica);
+                    colTemplateMetricaAprendizado.Add(objMetrica);
                 }
             }
 
@@ -81,19 +81,98 @@ namespace MEUNEGOCIO.Controllers
             List<decimal> numeroDesempenhoFinanceiro = new List<decimal>();
             foreach (var itemObj in colObjetivoFinanceiro)
             {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO").ToList<Metrica>())
+                foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
-                    colDesempenhoFinanceiro.Add(objMetrica);
+                    colDesempenhoFinanceiro.Add(objMetricaTemplate);
+                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
                     numeroDesempenhoFinanceiro.Add(objMetrica.Executado);
                 }
             }
-            /* Definição das ViewBags */
+
+            var colDesempenhoCliente = new List<Metrica>();
+            List<decimal> numeroDesempenhoCliente = new List<decimal>();
+            foreach (var itemObj in colObjetivoClientes)
+            {
+                foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
+                {
+                    colDesempenhoCliente.Add(objMetricaTemplate);
+                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
+                    numeroDesempenhoCliente.Add(objMetrica.Executado);
+                }   
+            }
+
+            var colDesempenhoProcessoInterno = new List<Metrica>();
+            List<decimal> numeroDesempenhoProcessoInterno = new List<decimal>();
+            foreach (var itemObj in colObjetivoProcessoInterno)
+            {
+                foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
+                {
+                    colDesempenhoProcessoInterno.Add(objMetricaTemplate);
+                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
+                    numeroDesempenhoProcessoInterno.Add(objMetrica.Executado);
+                }
+            }
+
+            var colDesempenhoAprendizado = new List<Metrica>();
+            List<decimal> numeroDesempenhoAprendizado = new List<decimal>();
+            foreach (var itemObj in colObjetivoAprendizado)
+            {
+                foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
+                {
+                    colDesempenhoAprendizado.Add(objMetricaTemplate);
+                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
+                    numeroDesempenhoAprendizado.Add(objMetrica.Executado);
+                }
+            }
+
+            /* Cálculo da média ponderada do desempenho financeiro */
+            decimal? executado = 0, planejado = 0, peso = 0;
+            var colMetricaPesoTotal = 0;
+            foreach (var itemMetricaTemplateDesempenho in colTemplateMetricaFinanceiro)
+            {
+                peso = itemMetricaTemplateDesempenho.Peso;
+                var itemMetricaDesempenho = _context.Metrica.Where(m => m.LkpMetrica == itemMetricaTemplateDesempenho.Id).First();
+                if (itemMetricaDesempenho.Razao > 0)
+                {
+                    executado = executado + itemMetricaDesempenho.Razao * peso / 0;
+                }
+            }
+            /* Cálculo da média ponderada do desempenho cliente */
+            /* Cálculo da média ponderada do desempenho processo interno */
+            /* Cálculo da média ponderada do desempenho aprendizado */
+            /* Miscelania */
+
+            /* Definição das ViewBags Financeiro*/
             ViewBag.colPlanosFinanceiro = colPlanosFinanceiro;  
             ViewBag.colObjetivoFinanceiro = colObjetivoFinanceiro;
             ViewBag.colDesempenhoFinanceiro = colDesempenhoFinanceiro;
             ViewBag.numeroDesempenhoFinanceiro = numeroDesempenhoFinanceiro;
-            ViewBag.colMediaDesempenhoFinanceiro = Math.Round(numeroDesempenhoFinanceiro.Average());
-            ViewBag.colTemplateMetricaFinanceiro = _context.Metrica.Where(m => m.Nome != "DESEMPENHO" && m.Template == true).Include(m => m.LkpMetricaNavigation).Include(m => m.LkpObjetivoNavigation).Include(m => m.LkpPessoaNavigation).Include(m => m.LkpPlanoAcaoNavigation).Include(m => m.LkpStatusDetalheTarefaNavigation).Include(m => m.LkpTarefaStatusNavigation).ToList<Metrica>();
+            ViewBag.colMediaDesempenhoFinanceiro = numeroDesempenhoFinanceiro.Count > 0 ? Math.Round(numeroDesempenhoFinanceiro.Average()) : 0;
+            ViewBag.colTemplateMetricaFinanceiro = colTemplateMetricaFinanceiro;
+
+            /* Definição das ViewBags Cliente */
+            ViewBag.colPlanosCliente = colPlanosClientes;
+            ViewBag.ObjetivoCliente = colObjetivoClientes;
+            ViewBag.colDesempenhoCliente = colDesempenhoCliente;
+            ViewBag.numeroDesempenhoCliente = numeroDesempenhoCliente;
+            ViewBag.colMediaDesempenhoCliente = numeroDesempenhoCliente.Count > 0 ? Math.Round(numeroDesempenhoCliente.Average()) : 0;
+            ViewBag.colTemplateMetricaCliente = colTemplateMetricaClientes;
+
+            /* Definição das ViewBags Processo Interno */
+            ViewBag.colPlanosProcessoInterno = colPlanosProcessoInterno;
+            ViewBag.ObjetivoProcessoInterno = colObjetivoProcessoInterno;
+            ViewBag.numeroDesempenhoProcessoInterno = numeroDesempenhoProcessoInterno;
+            ViewBag.colMediaDesempenhoProcessoInterno = numeroDesempenhoProcessoInterno.Count > 0 ? Math.Round(numeroDesempenhoProcessoInterno.Average()) : 0;
+            ViewBag.colTemplateMetricaProcessoInterno = colTemplateMetricaProcessoInterno;
+
+            /* Definição das ViewBags Aprendizado */
+            ViewBag.colPlanosAprendizado = colPlanosAprendizado;
+            ViewBag.ObjetivoAprendizado = colObjetivoAprendizado;
+            ViewBag.numeroDesempenhoAprendizado = numeroDesempenhoAprendizado;
+            ViewBag.colMediaDesempenhoAprendizado = numeroDesempenhoAprendizado.Count > 0 ? Math.Round(numeroDesempenhoAprendizado.Average()) : 0;
+            ViewBag.colTemplateMetricaAprendizado = colTemplateMetricaAprendizado;
+
+            /* Model View */
             ViewBag.colMetrica = _context.Metrica.Where(m => m.LkpMetrica != null).ToList<Metrica>();
             return View(await meunegocioContext.ToListAsync());
         }
