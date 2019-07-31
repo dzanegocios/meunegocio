@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ASPNET_Core_2_1.Models
 {
@@ -39,5 +40,43 @@ namespace ASPNET_Core_2_1.Models
         public ICollection<Metrica> InverseLkpMetricaNavigation { get; set; }
         public ICollection<Objetivo> Objetivo { get; set; }
         public ICollection<PlanoAcao> PlanoAcao { get; set; }
+
+        private readonly meunegocioContext _context;
+
+        public void desempenhoMetricaMetometro(int IDMetrica, DateTime dataMetrica)
+        {
+            var objMetricaTemplate = _context.Metrica.Where(m => m.Id == IDMetrica).First();
+            var objObjetivo = _context.Objetivo.Where(o => o.Id == objMetricaTemplate.LkpObjetivo).First();
+            var objMetricaDesempenhoTemplate = _context.Metrica.Where(m => m.LkpObjetivo == objObjetivo.Id && m.Nome == "DESEMPENHO").First();
+            var objMetricaDesempenho = _context.Metrica.Where(m => m.LkpMetrica == objMetricaDesempenhoTemplate.Id && m.Data == dataMetrica).First();
+            decimal? executado = 0, planejado = 0, peso = 0;
+            var colTemplates = _context.Metrica.Where(m => m.LkpObjetivo == objObjetivo.Id && m.Nome != "DESEMPENHO");
+            var colMetricaPesoTotal = _context.Metrica.Where(m => m.LkpObjetivo == objObjetivo.Id && m.Nome != "DESEMPENHO");
+
+            foreach (var metricaTemplate in colTemplates)
+            {
+                foreach (var itemMetrica in _context.Metrica.Where(m => m.LkpMetrica == metricaTemplate.Id && m.Data == dataMetrica && m.Nome != "DESEMPENHO"))
+                {
+                    var objPesoTemplate = _context.Metrica.Where(m => m.Id == itemMetrica.LkpMetrica).First();
+                    if (itemMetrica.Razao > 0)
+                    {
+                        executado = executado + itemMetrica.Razao * objPesoTemplate.Peso / colMetricaPesoTotal.Sum(m => m.Peso) * 100;
+                    }
+                    peso = peso + objPesoTemplate.Peso / colMetricaPesoTotal.Sum(m => m.Peso) * 100;
+                }
+            }
+            if (executado > 0 && peso > 0)
+            {
+                var mediaPonderadaExecutada = executado / peso;
+                objMetricaDesempenho.Executado = (decimal)mediaPonderadaExecutada;
+                objMetricaDesempenho.Planejado = 100;
+            }
+            else
+            {
+                objMetricaDesempenho.Executado = 0;
+                objMetricaDesempenho.Planejado = 0;
+            }
+            _context.SaveChanges();
+        }
     }
 }

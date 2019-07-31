@@ -134,17 +134,7 @@ namespace MEUNEGOCIO.Controllers
             }
 
             /* Cálculo da média ponderada do desempenho financeiro */
-            decimal? executado = 0, planejado = 0, peso = 0;
             
-            foreach (var itemMetricaTemplateDesempenho in colTemplateMetricaFinanceiro)
-            {
-                peso = itemMetricaTemplateDesempenho.Peso;
-                var itemMetricaDesempenho = _context.Metrica.Where(m => m.LkpMetrica == itemMetricaTemplateDesempenho.Id).First();
-                if (itemMetricaDesempenho.Razao > 0)
-                {
-                    executado = executado + itemMetricaDesempenho.Razao * peso / colFinanceiroMetricaPesoTotal * 100;
-                }
-            }
             /* Cálculo da média ponderada do desempenho cliente */
             /* Cálculo da média ponderada do desempenho processo interno */
             /* Cálculo da média ponderada do desempenho aprendizado */
