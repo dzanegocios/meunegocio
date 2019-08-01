@@ -27,5 +27,15 @@ namespace ASPNET_Core_2_1.Models
         public ICollection<Cargo> Cargo { get; set; }
         public ICollection<PerfilPessoa> PerfilPessoa { get; set; }
         public ICollection<Pessoas> Pessoas { get; set; }
+
+        public List<int> getValoresCor()
+        {
+            List<int> valores = new List<int>();
+            valores.Add((int)Vermelho);
+            valores.Add((int)Amarelo);
+            valores.Add((int)Verde);
+            valores.Add((int)Azul);
+            return valores;
+        }
     }
 }

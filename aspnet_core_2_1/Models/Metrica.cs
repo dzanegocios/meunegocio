@@ -49,7 +49,7 @@ namespace ASPNET_Core_2_1.Models
             var objObjetivo = _context.Objetivo.Where(o => o.Id == objMetricaTemplate.LkpObjetivo).First();
             var objMetricaDesempenhoTemplate = _context.Metrica.Where(m => m.LkpObjetivo == objObjetivo.Id && m.Nome == "DESEMPENHO").First();
             var objMetricaDesempenho = _context.Metrica.Where(m => m.LkpMetrica == objMetricaDesempenhoTemplate.Id && m.Data == dataMetrica).First();
-            decimal? executado = 0, planejado = 0, peso = 0;
+            decimal? executado = 0, peso = 0;
             var colTemplates = _context.Metrica.Where(m => m.LkpObjetivo == objObjetivo.Id && m.Nome != "DESEMPENHO");
             var colMetricaPesoTotal = _context.Metrica.Where(m => m.LkpObjetivo == objObjetivo.Id && m.Nome != "DESEMPENHO");
 
@@ -76,7 +76,106 @@ namespace ASPNET_Core_2_1.Models
                 objMetricaDesempenho.Executado = 0;
                 objMetricaDesempenho.Planejado = 0;
             }
+            // Salvar alterações no banco
             _context.SaveChanges();
+        }
+        public String corFundo(decimal razao, string indice, List<int> valores)
+        {
+            string corFundo = null;
+            string vermelho = "#ff7675", amarelo = "#ffeaa7", verde = "#99e3d4", azul = "#74b9ff", cinza = "#c2c2a3";
+            if (indice == "Quanto maior melhor")
+            {
+                if (razao >= valores[0] + valores[1] + valores[2])
+                {
+                    corFundo = azul;
+                }
+                if (razao <= valores[0] + valores[1] + valores[2])
+                {
+                    corFundo = verde;
+                }
+                if (razao <= valores[1] + valores[2])
+                {
+                    corFundo = amarelo;
+                }
+                if (razao <= valores[2])
+                {
+                    corFundo = vermelho;
+                }
+            }
+            // Indice 'quanto menor melhor'
+            else
+            {
+                if (razao >= valores[2])
+                {
+                    corFundo = vermelho;
+                }
+                if (razao <= valores[1] + valores[2])
+                {
+                    corFundo = amarelo;
+                }
+                if (razao <= valores[0] + valores[1] + valores[2])
+                {
+                    corFundo = verde;
+                }
+                if (razao <= valores[0] + valores[1] + valores[2])
+                {
+                    corFundo = azul;
+                }
+            }
+            if (razao == -1)
+            {
+                corFundo = "#5b6c7c";
+            }
+            return corFundo;
+        }
+        public String corBorda(decimal razao, string indice, List<int> valores)
+        {
+            string corFundo = null;
+            string vermelho = "#d63031", amarelo = "#fdcb6e", verde = "#00b894", azul = "#0984e3", cinza = "#c2c2a3";
+            if (indice == "Quanto maior melhor")
+            {
+                if (razao >= valores[0] + valores[1] + valores[2])
+                {
+                    corFundo = azul;
+                }
+                if (razao <= valores[0] + valores[1] + valores[2])
+                {
+                    corFundo = verde;
+                }
+                if (razao <= valores[1] + valores[2])
+                {
+                    corFundo = amarelo;
+                }
+                if (razao <= valores[2])
+                {
+                    corFundo = vermelho;
+                }
+            }
+            // Indice 'quanto menor melhor'
+            else
+            {
+                if (razao >= valores[2])
+                {
+                    corFundo = vermelho;
+                }
+                if (razao <= valores[1] + valores[2])
+                {
+                    corFundo = amarelo;
+                }
+                if (razao <= valores[0] + valores[1] + valores[2])
+                {
+                    corFundo = verde;
+                }
+                if (razao <= valores[0] + valores[1] + valores[2])
+                {
+                    corFundo = azul;
+                }
+            }
+            if (razao == -1)
+            {
+                corFundo = "#5b6c7c";
+            }
+            return corFundo;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace MEUNEGOCIO.Controllers
         // GET: Objetivoes
         public async Task<IActionResult> Index()
         {
+             ViewBag.objTeste = _context.Metrica.Where(m => m.Id == 10).First();
             var meunegocioContext = _context.Objetivo.Include(o => o.LkpMetricaNavigation).Include(o => o.LkpPerspectivaNavigation).Include(o => o.LkpPessoaNavigation).Include(o => o.LkpResponsavelNavigation);
             /* Camadas BSC */
             var bscFinanceiro = _context.Bsc.Where(b => b.Nome == "Financeiro").ToList<Bsc>().First();
@@ -48,6 +49,7 @@ namespace MEUNEGOCIO.Controllers
                 {
                     colFinanceiroMetricaPesoTotal = colFinanceiroMetricaPesoTotal + objMetrica.Peso;
                     colTemplateMetricaFinanceiro.Add(objMetrica);
+                    
                 }
             }
             
@@ -92,7 +94,7 @@ namespace MEUNEGOCIO.Controllers
                 foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
                 {
                     colDesempenhoFinanceiro.Add(objMetricaTemplate);
-                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
+                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();    
                     numeroDesempenhoFinanceiro.Add(objMetrica.Executado);
                 }
             }
@@ -134,12 +136,11 @@ namespace MEUNEGOCIO.Controllers
             }
 
             /* Cálculo da média ponderada do desempenho financeiro */
-            
+
             /* Cálculo da média ponderada do desempenho cliente */
             /* Cálculo da média ponderada do desempenho processo interno */
             /* Cálculo da média ponderada do desempenho aprendizado */
-            /* Miscelania */
-
+            
             /* Definição das ViewBags Financeiro*/
             ViewBag.colPlanosFinanceiro = colPlanosFinanceiro;  
             ViewBag.colObjetivoFinanceiro = colObjetivoFinanceiro;
@@ -147,6 +148,7 @@ namespace MEUNEGOCIO.Controllers
             ViewBag.numeroDesempenhoFinanceiro = numeroDesempenhoFinanceiro;
             ViewBag.colMediaDesempenhoFinanceiro = numeroDesempenhoFinanceiro.Count > 0 ? Math.Round(numeroDesempenhoFinanceiro.Average()) : 0;
             ViewBag.colTemplateMetricaFinanceiro = colTemplateMetricaFinanceiro;
+            
 
             /* Definição das ViewBags Cliente */
             ViewBag.colPlanosCliente = colPlanosClientes;
@@ -169,6 +171,28 @@ namespace MEUNEGOCIO.Controllers
             ViewBag.numeroDesempenhoAprendizado = numeroDesempenhoAprendizado;
             ViewBag.colMediaDesempenhoAprendizado = numeroDesempenhoAprendizado.Count > 0 ? Math.Round(numeroDesempenhoAprendizado.Average()) : 0;
             ViewBag.colTemplateMetricaAprendizado = colTemplateMetricaAprendizado;
+
+            /* Miscelania */
+            Metrica objMetricaA = new Metrica();
+            Perfil objPerfil = _context.Perfil.Where(pr => pr.LkpPessoa == _context.Pessoas.Where(ps => ps.Email == "dsilvanicolas@gmail.com").First().Id).First();
+            List<string> coresFundoFinanceiro = new List<string>();
+            List<string> coresBordaFinanceiro = new List<string>();
+            foreach (var numero in numeroDesempenhoFinanceiro)
+            {
+                coresFundoFinanceiro.Add(objMetricaA.corFundo(numero, "Quanto maior melhor", objPerfil.getValoresCor()));
+                coresBordaFinanceiro.Add(objMetricaA.corBorda(numero, "Quanto maior melhor", objPerfil.getValoresCor()));
+            }
+            /* Definição de cores de fundo e borda */
+            ViewData["corFundoFinanceiro"] = objMetricaA.corFundo(numeroDesempenhoFinanceiro.Count > 0 ? numeroDesempenhoFinanceiro.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+            ViewData["corBordaFinanceiro"] = objMetricaA.corBorda(numeroDesempenhoFinanceiro.Count > 0 ? numeroDesempenhoFinanceiro.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+            ViewData["corFundoCliente"] = objMetricaA.corFundo(numeroDesempenhoCliente.Count > 0 ? numeroDesempenhoCliente.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+            ViewData["corBordaCliente"] = objMetricaA.corBorda(numeroDesempenhoCliente.Count > 0 ? numeroDesempenhoCliente.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+            ViewData["corFundoProcesso"] = objMetricaA.corFundo(numeroDesempenhoProcessoInterno.Count > 0 ? numeroDesempenhoProcessoInterno.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+            ViewData["corBordaProcesso"] = objMetricaA.corBorda(numeroDesempenhoProcessoInterno.Count > 0 ? numeroDesempenhoProcessoInterno.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+            ViewData["corFundoAprendizado"] = objMetricaA.corFundo(numeroDesempenhoAprendizado.Count > 0 ? numeroDesempenhoAprendizado.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+            ViewData["corBordaAprendizado"] = objMetricaA.corBorda(numeroDesempenhoAprendizado.Count > 0 ? numeroDesempenhoAprendizado.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+            ViewBag.coresFundoFinanceiro = coresFundoFinanceiro;
+            ViewBag.coresBordaFinanceiro = coresBordaFinanceiro;
 
             /* Model View */
             ViewBag.colMetrica = _context.Metrica.Where(m => m.LkpMetrica != null).ToList<Metrica>();

@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<ASPNET_Core_2_1.Models.Objetivo>
 @using ASPNET_Core_2_1.Models
 @{
-    ViewData["Title"] = "Mapa";
+    ViewData["Title"] = "Mapa Estratégico";
+    Metrica objMetricaA = new Metrica();
     List<decimal> numeroDesempenhoFinanceiro = new List<decimal>();
     foreach (var numero in ViewBag.numeroDesempenhoFinanceiro)
     {
@@ -26,7 +27,8 @@
     {
         colMetrica.Add(metrica);
     }
-    DateTime mesPassado = DateTime.Today;
+
+    var mesPassado = DateTime.Today;
 
 
 }
@@ -41,6 +43,114 @@
     }
 </style>
 
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/flot/jquery.flot.js"></script>
+        <script src="~/lib/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="~/lib/flot/jquery.flot.resize.js"></script>
+        <script src="~/lib/flot/jquery.flot.pie.js"></script>
+        <script src="~/lib/flot/jquery.flot.time.js"></script>
+        <script src="~/lib/flot/jquery.flot.spline.js"></script>
+        <script src="~/lib/sparkline/jquery.sparkline.min.js"></script>
+        <script src="~/lib/slick-carousel/slick/slick.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+        $('.col-sm-3').click(function (e) {
+            e.preventDefault();
+            $('.col-sm-3').removeClass('bgDiferente');
+            $(this).addClass('bgDiferente');
+        });
+        function atualizarGrafico(data1, data2, i) {
+            var flot = "#flot-chart-content-" + i;
+            alert(i);
+            $.plot($("#flot-chart-content-0"), [
+                data1, data2
+            ],
+                {
+                    series: {
+                        lines: {
+                            show: false,
+                            fill: true
+                        },
+                        splines: {
+                            show: true,
+                            tension: 0.4,
+                            lineWidth: 1,
+                            fill: 0.4
+                        },
+                        points: {
+                            radius: 0,
+                            show: true
+                        },
+                        shadowSize: 2
+                    },
+                    grid: {
+                        hoverable: true,
+                        clickable: true,
+
+                        borderWidth: 2,
+                        color: 'transparent'
+                    },
+                    colors: ["#95a5a6", "#00b894"],
+                    xaxis: {
+                        show: false
+                    },
+                    yaxis: {
+                        show: false
+                    },
+                    tooltip: false
+                }
+            );
+        }
+        // Carrosel
+        $('.slick_demo_1').slick({
+            dots: true
+        });
+
+        $('.slick_demo_2').slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            centerMode: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+
+        $('.slick_demo_3').slick({
+            infinite: true,
+            speed: 500,
+            fade: true,
+            cssEase: 'linear',
+            adaptiveHeight: true
+        });
+
+
+/**/</script>
+}
 <div class="row justify-content-md-center">
     <div class="col-lg-11">
         <div class="ibox">
@@ -49,8 +159,8 @@
                     <div id="tab-1" class="tab-pane active">
                         <div class="panel-body">
                             <div class="panel-group" id="accordion">
-                                <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                    <div class="panel-heading" style="background-color: #99e3d4">
+                                <div class="panel panel-default" style="border: 1px solid @ViewData["corBordaFinanceiro"]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                    <div class="panel-heading" style="background-color: @ViewData["corFundoFinanceiro"]">
                                         <h5 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colPlanosFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colTemplateMetricaFinanceiro.Count</span></a>
                                             <p style="float: right; font-size: 18px;">
@@ -59,14 +169,14 @@
                                         </h5>
                                     </div>
                                     <!-- Percorre objetivos -->
-                                    @foreach (var objetivo in Model)
+                                    @foreach (var objetivo in ViewBag.colObjetivoFinanceiro)
                                     {
-                                        
+
                                         <div id="collapseOne" class="pt-2 panel-collapse collapse in">
                                             <div class="col-12">
                                                 <div class="panel-group pb-2" id="accordion">
-                                                    <div class="panel panel-default" style="border: 1px solid #00b894; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                                        <div class="panel-heading" style="background-color: #99e3d4">
+                                                    <div class="panel panel-default" style="border: 1px solid @ViewBag.coresBordaFinanceiro[i]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                                        <div class="panel-heading" style="background-color: @ViewBag.coresFundoFinanceiro[i]">
                                                             <h5 class="panel-title" style="margin: 0">
                                                                 <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <span title="Métricas"><i class="fa fa-tag"></i> @colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id).Count()</span></a>
                                                                 <p style="float: right; font-size: 18px;">@Math.Round(numeroDesempenhoFinanceiro[i])%</p>
@@ -106,58 +216,66 @@
                                                                     <div class="col-9">
                                                                         <div class="row">
                                                                             @foreach (var item in colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id))
+                                                                            {
+                                                                                var objMetrica = colMetrica.Where(m => m.LkpMetrica == item.Id).FirstOrDefault();
+                                                                                @if (objMetrica != null)
                                                                                 {
-                                                                                    var objMetrica = colMetrica.Where(m => m.LkpMetrica == item.Id).FirstOrDefault();
-                                                                                    @if (objMetrica != null)
-                                                                                    {
-                                                                            <div class="col-sm-3 mb-2">
-                                                                                <a onclick="atualizarGrafico([
+                                                                                    <div class="col-sm-3 mb-2">
+                                                                                        <a onclick="atualizarGrafico([
                     [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
                 ],
                 [
                     [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
-                ]);">
-                                                                                    <div class="row m-t-xs text-center">
-                                                                                        <div class="col-12">
-                                                                                            <h5 class="m-b-xs">@objMetrica.Nome</h5>
-                                                                                            <h1 class="no-margins text-navy">@objMetrica.Executado</h1>
-                                                                                            <div class="font-bold" style="color: #00b894">@objMetrica.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i>
-                                                                                            @if (objMetrica.Data == mesPassado)
-                                                                                            {
-                                                                                                var MetricaPassada = (colTemplateMetricaFinanceiro.Where(m => m.Id == objetivo.Id && m.Data == mesPassado)).FirstOrDefault();
-                                                                                                if (MetricaPassada != null)
-                                                                                                {
-                                                                                                    double razao = (double)(objMetrica.Razao / MetricaPassada.Razao);
-                                                                                                    <p>@razao</p> 
-                                                                                                }
-                                                                                                
-                                                                                            }
+                ], @i);">
+                                                                                            <div class="row m-t-xs text-center">
+                                                                                                <div class="col-12">
+                                                                                                    <h5 class="m-b-xs">@objMetrica.Nome</h5>
+                                                                                                    <h1 class="no-margins text-navy">@objMetrica.Executado</h1>
+                                                                                                    <div class="font-bold" style="color: #00b894">
+                                                                                                        @objMetrica.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i>
+                                                                                                        @if (objMetrica.Data == mesPassado)
+                                                                                                        {
+                                                                                                            var MetricaPassada = (colTemplateMetricaFinanceiro.Where(m => m.Id == objetivo.Id && m.Data == mesPassado)).FirstOrDefault();
+                                                                                                            if (MetricaPassada != null)
+                                                                                                            {
+                                                                                                                double razao = (double)(objMetrica.Razao / MetricaPassada.Razao);
+                                                                                                                <p>@razao</p>
+                                                                                                            }
+
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </div>
-                                                                                        </div>
+                                                                                        </a>
                                                                                     </div>
-                                                                                </a>
-                                                                            </div>
-                                                                                    }
                                                                                 }
+                                                                            }
                                                                         </div>
-                                                                        <!-- grafico tava aqui -->
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col-lg-12">
                                                                         <div class="flot-chart">
-                                                                            <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+                                                                            <div class="flot-chart-content" id="flot-chart-content-@i">
+
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- OBJETIVO 2 -->
-
                                                 </div>
                                             </div>
                                         </div>
+                                        <script>
+                                                                                    atualizarGrafico([
+                                                                                        [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
+                                                                                    ],
+                                                                                        [
+                                                                                            [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
+                                                                                        ], @i);
+                                        </script>
                                         i = i + 1;
                                     }
                                 </div>
@@ -185,119 +303,4 @@
         <link rel="stylesheet" href="~/lib/slick-carousel/slick/slick-theme.css" />
         <link rel="stylesheet" href="~/lib/dza/style.css" />
     </environment>
-}
-@section Scripts {
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/flot/jquery.flot.js"></script>
-        <script src="~/lib/flot/jquery.flot.tooltip.min.js"></script>
-        <script src="~/lib/flot/jquery.flot.resize.js"></script>
-        <script src="~/lib/flot/jquery.flot.pie.js"></script>
-        <script src="~/lib/flot/jquery.flot.time.js"></script>
-        <script src="~/lib/flot/jquery.flot.spline.js"></script>
-        <script src="~/lib/sparkline/jquery.sparkline.min.js"></script>
-        <script src="~/lib/slick-carousel/slick/slick.js"></script>
-    </environment>
-
-    <script type="text/javascript">
-        $('.col-sm-3').click(function (e) {
-            e.preventDefault();
-            $('.col-sm-3').removeClass('bgDiferente');
-            $(this).addClass('bgDiferente');
-        });
-        function atualizarGrafico(data1, data2) {
-            $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
-                data1, data2
-            ],
-                {
-                    series: {
-                        lines: {
-                            show: false,
-                            fill: true
-                        },
-                        splines: {
-                            show: true,
-                            tension: 0.4,
-                            lineWidth: 1,
-                            fill: 0.4
-                        },
-                        points: {
-                            radius: 0,
-                            show: true
-                        },
-                        shadowSize: 2
-                    },
-                    grid: {
-                        hoverable: true,
-                        clickable: true,
-
-                        borderWidth: 2,
-                        color: 'transparent'
-                    },
-                    colors: ["#95a5a6", "#00b894"],
-                    xaxis: {
-                        show: false
-                    },
-                    yaxis: {
-                        show: false
-                    },
-                    tooltip: false
-                }
-            );
-        }
-        $(document).ready(function () {
-            atualizarGrafico([
-                [0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
-            ],
-                [
-                    [0, 0], [1, 2], [2, 7], [3, 4], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
-                ]);
-
-
-            // Carrosel
-            $('.slick_demo_1').slick({
-                dots: true
-            });
-
-            $('.slick_demo_2').slick({
-                infinite: true,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                centerMode: true,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3,
-                            infinite: true,
-                            dots: true
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 2
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
-
-            $('.slick_demo_3').slick({
-                infinite: true,
-                speed: 500,
-                fade: true,
-                cssEase: 'linear',
-                adaptiveHeight: true
-            });
-        });
-
-    </script>
 }
