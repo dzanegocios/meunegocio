@@ -177,6 +177,8 @@ namespace MEUNEGOCIO.Controllers
             Perfil objPerfil = _context.Perfil.Where(pr => pr.LkpPessoa == _context.Pessoas.Where(ps => ps.Email == "dsilvanicolas@gmail.com").First().Id).First();
             List<string> coresFundoFinanceiro = new List<string>();
             List<string> coresBordaFinanceiro = new List<string>();
+            ViewBag.colCamadas = _context.Bsc.Where(b => b.Id != null);
+            ViewBag.colObjetivo = _context.Objetivo.Where(o => o.Id != null);
             foreach (var numero in numeroDesempenhoFinanceiro)
             {
                 coresFundoFinanceiro.Add(objMetricaA.corFundo(numero, "Quanto maior melhor", objPerfil.getValoresCor()));

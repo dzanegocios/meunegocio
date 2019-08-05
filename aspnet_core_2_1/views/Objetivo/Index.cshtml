@@ -8,7 +8,6 @@
     {
         numeroDesempenhoFinanceiro.Add(numero);
     }
-    int i = 0;
 
     List<Metrica> colTemplateMetricaFinanceiro = new List<Metrica>();
     foreach (var metrica in ViewBag.colTemplateMetricaFinanceiro)
@@ -28,8 +27,14 @@
         colMetrica.Add(metrica);
     }
 
+    List<Objetivo> colObjetivo = new List<Objetivo>();
+    foreach (var objetivo in ViewBag.colObjetivo)
+    {
+        colObjetivo.Add(objetivo);
+    }
     var mesPassado = DateTime.Today;
 
+    int a = 0;
 
 }
 <style>
@@ -55,242 +60,242 @@
         <script src="~/lib/slick-carousel/slick/slick.js"></script>
     </environment>
 
-    <script type="text/javascript">
-        $('.col-sm-3').click(function (e) {
-            e.preventDefault();
-            $('.col-sm-3').removeClass('bgDiferente');
-            $(this).addClass('bgDiferente');
-        });
-        function atualizarGrafico(data1, data2, i) {
-            var flot = "#flot-chart-content-" + i;
-            alert(i);
-            $.plot($("#flot-chart-content-0"), [
-                data1, data2
-            ],
-                {
-                    series: {
-                        lines: {
-                            show: false,
-                            fill: true
-                        },
-                        splines: {
-                            show: true,
-                            tension: 0.4,
-                            lineWidth: 1,
-                            fill: 0.4
-                        },
-                        points: {
-                            radius: 0,
-                            show: true
-                        },
-                        shadowSize: 2
+}
+<script type="text/javascript">
+    $('.col-sm-3').click(function (e) {
+        e.preventDefault();
+        $('.col-sm-3').removeClass('bgDiferente');
+        $(this).addClass('bgDiferente');
+    });
+    function atualizarGrafico(data1, data2, i) {
+        var flot = "#chart-" + i;
+        alert(flot);
+        $.plot($(flot), [
+            data1, data2
+        ],
+            {
+                series: {
+                    lines: {
+                        show: false,
+                        fill: true
                     },
-                    grid: {
-                        hoverable: true,
-                        clickable: true,
-
-                        borderWidth: 2,
-                        color: 'transparent'
+                    splines: {
+                        show: true,
+                        tension: 0.4,
+                        lineWidth: 1,
+                        fill: 0.4
                     },
-                    colors: ["#95a5a6", "#00b894"],
-                    xaxis: {
-                        show: false
+                    points: {
+                        radius: 0,
+                        show: true
                     },
-                    yaxis: {
-                        show: false
-                    },
-                    tooltip: false
-                }
-            );
-        }
-        // Carrosel
-        $('.slick_demo_1').slick({
-            dots: true
-        });
-
-        $('.slick_demo_2').slick({
-            infinite: true,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            centerMode: true,
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true
-                    }
+                    shadowSize: 2
                 },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
+                grid: {
+                    hoverable: true,
+                    clickable: true,
+
+                    borderWidth: 2,
+                    color: 'transparent'
                 },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
+                colors: ["#95a5a6", "#00b894"],
+                xaxis: {
+                    show: false
+                },
+                yaxis: {
+                    show: false
+                },
+                tooltip: false
+            }
+        );
+    }
+    // Carrosel
+    $('.slick_demo_1').slick({
+        dots: true
+    });
+
+    $('.slick_demo_2').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        centerMode: true,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
                 }
-            ]
-        });
-
-        $('.slick_demo_3').slick({
-            infinite: true,
-            speed: 500,
-            fade: true,
-            cssEase: 'linear',
-            adaptiveHeight: true
-        });
-
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
 
 /**/</script>
-}
+
 <div class="row justify-content-md-center">
-    <div class="col-lg-11">
+    <div class="col-lg-10 col-lg-offset-1">
         <div class="ibox">
             <div class="slick_demo_1">
-                <div>
-                    <div id="tab-1" class="tab-pane active">
-                        <div class="panel-body">
-                            <div class="panel-group" id="accordion">
+                <div class="mt-4">
+                    <div class="ibox-content" style="background-color: inherit; border: none">
+                        <div class="panel-group" id="accordion">
+                            @foreach (var objCamada in ViewBag.colCamadas)
+                            {
+                                int indice = 0;
                                 <div class="panel panel-default" style="border: 1px solid @ViewData["corBordaFinanceiro"]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                     <div class="panel-heading" style="background-color: @ViewData["corFundoFinanceiro"]">
                                         <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Financeiro | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colPlanosFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colTemplateMetricaFinanceiro.Count</span></a>
-                                            <p style="float: right; font-size: 18px;">
-                                                @ViewBag.colMediaDesempenhoFinanceiro%
-                                            </p>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#camada-@objCamada.Id">@objCamada.Nome | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colPlanosFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colTemplateMetricaFinanceiro.Count</span></a>
+                                            <p style="float: right; font-size: 18px;">@Math.Round(numeroDesempenhoFinanceiro[indice])%</p>
                                         </h5>
                                     </div>
-                                    <!-- Percorre objetivos -->
-                                    @foreach (var objetivo in ViewBag.colObjetivoFinanceiro)
-                                    {
-
-                                        <div id="collapseOne" class="pt-2 panel-collapse collapse in">
-                                            <div class="col-12">
-                                                <div class="panel-group pb-2" id="accordion">
-                                                    <div class="panel panel-default" style="border: 1px solid @ViewBag.coresBordaFinanceiro[i]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                                        <div class="panel-heading" style="background-color: @ViewBag.coresFundoFinanceiro[i]">
-                                                            <h5 class="panel-title" style="margin: 0">
-                                                                <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#faturamento">@objetivo.Descricao | <span title="Métricas"><i class="fa fa-tag"></i> @colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id).Count()</span></a>
-                                                                <p style="float: right; font-size: 18px;">@Math.Round(numeroDesempenhoFinanceiro[i])%</p>
-                                                            </h5>
-                                                        </div>
-                                                        <div id="faturamento" class="panel-collapse collapse in">
-                                                            <div class="panel-body">
+                                    <div id="camada-@objCamada.Id" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            @foreach (var objetivo in colObjetivo.Where(o => o.LkpPerspectiva == objCamada.Id))
+                                            {
+                                                <div class="panel panel-default mb-2" style="border: 1px solid @ViewBag.coresBordaFinanceiro[indice]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                                    <div class="panel-heading" style="background-color: @ViewBag.coresFundoFinanceiro[indice]">
+                                                        <h5 class="panel-title" style="margin: 0">
+                                                            <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#objetivo-@objetivo.Id">@objetivo.Descricao | <span title="Métricas"><i class="fa fa-tag"></i> @colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id).Count()</span></a>
+                                                            <p style="float: right; font-size: 18px;">@Math.Round(numeroDesempenhoFinanceiro[indice])%</p>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                                <div id="objetivo-@objetivo.Id" class="panel-collapse collapse in">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-3">
                                                                 <div class="row">
-                                                                    <div class="col-3">
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
-                                                                                <div class="row m-t-xs text-center">
-                                                                                    <div class="col-12">
-                                                                                        <h5 class="m-b-xs">Desempenho</h5>
-                                                                                        <h1 class="no-margins text-navy"></h1>
-                                                                                        <div class="font-bold" style="color: #00b894">@Math.Round(numeroDesempenhoFinanceiro[i])% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <table class="table small m-t-sm">
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                                <div class="small">
-                                                                                                    <strong>Sales char</strong> have evolved over the years sometimes.
-                                                                                                </div>
-                                                                                                <div class="small">
-                                                                                                    <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                                                                                                </div>
-                                                                                            </td>
-
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
+                                                                    <div class="col-sm-12 bg-muted" style="padding: 0; border-left: 15px solid #fff; border-right: 15px solid #fff">
+                                                                        <div class="row m-t-xs text-center">
+                                                                            <div class="col-12">
+                                                                                <h5 class="m-b-xs">Desempenho</h5>
+                                                                                <h1 class="no-margins text-navy"></h1>
+                                                                                <div class="font-bold" style="color: #00b894">@Math.Round(numeroDesempenhoFinanceiro[indice])% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                                             </div>
                                                                         </div>
+                                                                        <table class="table small m-t-sm">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <div class="small">
+                                                                                            <strong>Sales char</strong> have evolved over the years sometimes.
+                                                                                        </div>
+                                                                                        <div class="small">
+                                                                                            <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
-                                                                    <div class="col-9">
-                                                                        <div class="row">
-                                                                            @foreach (var item in colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id))
-                                                                            {
-                                                                                var objMetrica = colMetrica.Where(m => m.LkpMetrica == item.Id).FirstOrDefault();
-                                                                                @if (objMetrica != null)
-                                                                                {
-                                                                                    <div class="col-sm-3 mb-2">
-                                                                                        <a onclick="atualizarGrafico([
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <div class="row">
+                                                                    @foreach (var item in colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id))
+                                                                    {
+                                                                        var objMetrica = colMetrica.Where(m => m.LkpMetrica == item.Id).FirstOrDefault();
+                                                                        @if (objMetrica != null)
+                                                                        {
+                                                                            <div class="col-sm-3 mb-2">
+                                                                                <a onclick="atualizarGrafico([
                     [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
                 ],
                 [
                     [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
-                ], @i);">
-                                                                                            <div class="row m-t-xs text-center">
-                                                                                                <div class="col-12">
-                                                                                                    <h5 class="m-b-xs">@objMetrica.Nome</h5>
-                                                                                                    <h1 class="no-margins text-navy">@objMetrica.Executado</h1>
-                                                                                                    <div class="font-bold" style="color: #00b894">
-                                                                                                        @objMetrica.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i>
-                                                                                                        @if (objMetrica.Data == mesPassado)
-                                                                                                        {
-                                                                                                            var MetricaPassada = (colTemplateMetricaFinanceiro.Where(m => m.Id == objetivo.Id && m.Data == mesPassado)).FirstOrDefault();
-                                                                                                            if (MetricaPassada != null)
-                                                                                                            {
-                                                                                                                double razao = (double)(objMetrica.Razao / MetricaPassada.Razao);
-                                                                                                                <p>@razao</p>
-                                                                                                            }
+                ],@objetivo.Id);">
+                                                                                    <div class="row m-t-xs text-center">
+                                                                                        <div class="col-12">
+                                                                                            <h5 class="m-b-xs">@objMetrica.Nome</h5>
+                                                                                            <h1 class="no-margins text-navy">@objMetrica.Executado</h1>
+                                                                                            <div class="font-bold" style="color: #00b894">
+                                                                                                @objMetrica.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i>
+                                                                                                @if (objMetrica.Data == mesPassado)
+                                                                                                {
+                                                                                                    var MetricaPassada = (colTemplateMetricaFinanceiro.Where(m => m.Id == objetivo.Id && m.Data == mesPassado)).FirstOrDefault();
+                                                                                                    if (MetricaPassada != null)
+                                                                                                    {
+                                                                                                        double razao = (double)(objMetrica.Razao / MetricaPassada.Razao);
+                                                                                                        <p>@razao</p>
+                                                                                                    }
 
-                                                                                                        }
-                                                                                                    </div>
-                                                                                                </div>
+                                                                                                }
                                                                                             </div>
-                                                                                        </a>
+                                                                                        </div>
                                                                                     </div>
-                                                                                }
-                                                                            }
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="flot-chart">
-                                                                            <div class="flot-chart-content" id="flot-chart-content-@i">
-
+                                                                                </a>
                                                                             </div>
-                                                                        </div>
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="flot-chart">
+                                                                    <div class="flot-chart-content" id="chart-@objetivo.Id">
+                                                                        <script type="text/javascript">
+                                                                            atualizarGrafico([
+                    [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
+                ],
+                [
+                    [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
+                ],@objetivo.Id);
+                                                                        </script>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                indice = indice + 1;
+                                            }
                                         </div>
-                                        <script>
-                                                                                    atualizarGrafico([
-                                                                                        [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
-                                                                                    ],
-                                                                                        [
-                                                                                            [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
-                                                                                        ], @i);
-                                        </script>
-                                        i = i + 1;
-                                    }
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="ibox-content">
 
                     </div>
                 </div>
                 <div>
                     <div class="ibox-content">
-
+                        <h2>Slide 2</h2>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen
+                            book. It has survived not only five centuries, but also the leap.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div class="ibox-content">
+                        <h2>Slide 3</h2>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen
+                            book. It has survived not only five centuries, but also the leap.
+                        </p>
                     </div>
                 </div>
             </div>
