@@ -3,22 +3,11 @@
 @{
     ViewData["Title"] = "Mapa Estratégico";
     Metrica objMetricaA = new Metrica();
-    List<decimal> numeroDesempenhoFinanceiro = new List<decimal>();
-    foreach (var numero in ViewBag.numeroDesempenhoFinanceiro)
-    {
-        numeroDesempenhoFinanceiro.Add(numero);
-    }
 
-    List<Metrica> colTemplateMetricaFinanceiro = new List<Metrica>();
-    foreach (var metrica in ViewBag.colTemplateMetricaFinanceiro)
+    List<Metrica> colTemplateMetrica = new List<Metrica>();
+    foreach (var metrica in ViewBag.colTemplateMetrica)
     {
-        colTemplateMetricaFinanceiro.Add(metrica);
-    }
-
-    List<Metrica> colDesempenhoFinanceiro = new List<Metrica>();
-    foreach (var metrica in ViewBag.colDesempenhoFinanceiro)
-    {
-        colDesempenhoFinanceiro.Add(metrica);
+        colTemplateMetrica.Add(metrica);
     }
 
     List<Metrica> colMetrica = new List<Metrica>();
@@ -28,13 +17,19 @@
     }
 
     List<Objetivo> colObjetivo = new List<Objetivo>();
-    foreach (var objetivo in ViewBag.colObjetivo)
+    foreach (var metrica in ViewBag.colObjetivo)
     {
-        colObjetivo.Add(objetivo);
+        colObjetivo.Add(metrica);
+    }
+
+    List<PlanoAcao> colPlanoAcaoCamada = new List<PlanoAcao>();
+    foreach (var plano in ViewBag.colPlanoAcaoCamada)
+    {
+        colPlanoAcaoCamada.Add(plano);
     }
     var mesPassado = DateTime.Today;
-
-    int a = 0;
+        
+    int contadorCamada = 0, contadorObjetivo = 0;
 
 }
 <style>
@@ -47,7 +42,6 @@
         background-color: #00b894;
     }
 </style>
-
 @section Scripts {
     <environment names="Development,Staging,Production">
         <script src="~/lib/flot/jquery.flot.js"></script>
@@ -59,95 +53,102 @@
         <script src="~/lib/sparkline/jquery.sparkline.min.js"></script>
         <script src="~/lib/slick-carousel/slick/slick.js"></script>
     </environment>
+    <script type="text/javascript">
+        $('.col-sm-3').click(function (e) {
+            e.preventDefault();
+            $('.col-sm-3').removeClass('bgDiferente');
+            $(this).addClass('bgDiferente');
+        });
+        function atualizarGrafico(data1, data2, listaId) {
+            for (var i = 0; i < listaId.length; i++) {
+                var flot = "#chart-" + listaId[i];
+                $.plot($(flot), [
+                    data1, data2
+                ],
+                    {
+                        series: {
+                            lines: {
+                                show: false,
+                                fill: true
+                            },
+                            splines: {
+                                show: true,
+                                tension: 0.4,
+                                lineWidth: 1,
+                                fill: 0.4
+                            },
+                            points: {
+                                radius: 0,
+                                show: true
+                            },
+                            shadowSize: 2
+                        },
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
 
+                            borderWidth: 2,
+                            color: 'transparent'
+                        },
+                        colors: ["#95a5a6", "#00b894"],
+                        xaxis: {
+                            show: false
+                        },
+                        yaxis: {
+                            show: false
+                        },
+                        tooltip: false
+                    }
+                );
+            }
+        }
+        // Carrosel
+        $('.slick_demo_1').slick({
+            dots: true
+        });
+
+        $('.slick_demo_2').slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            centerMode: true,
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+        atualizarGrafico([
+                    [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
+                ],
+                [
+                    [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
+                ],listaObjetivo);
+    </script>
 }
-<script type="text/javascript">
-    $('.col-sm-3').click(function (e) {
-        e.preventDefault();
-        $('.col-sm-3').removeClass('bgDiferente');
-        $(this).addClass('bgDiferente');
-    });
-    function atualizarGrafico(data1, data2, i) {
-        var flot = "#chart-" + i;
-        alert(flot);
-        $.plot($(flot), [
-            data1, data2
-        ],
-            {
-                series: {
-                    lines: {
-                        show: false,
-                        fill: true
-                    },
-                    splines: {
-                        show: true,
-                        tension: 0.4,
-                        lineWidth: 1,
-                        fill: 0.4
-                    },
-                    points: {
-                        radius: 0,
-                        show: true
-                    },
-                    shadowSize: 2
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-
-                    borderWidth: 2,
-                    color: 'transparent'
-                },
-                colors: ["#95a5a6", "#00b894"],
-                xaxis: {
-                    show: false
-                },
-                yaxis: {
-                    show: false
-                },
-                tooltip: false
-            }
-        );
-    }
-    // Carrosel
-    $('.slick_demo_1').slick({
-        dots: true
-    });
-
-    $('.slick_demo_2').slick({
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        centerMode: true,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    });
-
-/**/</script>
-
+<script>
+    var listaObjetivo = [];
+</script>
 <div class="row justify-content-md-center">
     <div class="col-lg-10 col-lg-offset-1">
         <div class="ibox">
@@ -157,23 +158,22 @@
                         <div class="panel-group" id="accordion">
                             @foreach (var objCamada in ViewBag.colCamadas)
                             {
-                                int indice = 0;
-                                <div class="panel panel-default" style="border: 1px solid @ViewData["corBordaFinanceiro"]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                    <div class="panel-heading" style="background-color: @ViewData["corFundoFinanceiro"]">
+                                <div class="panel panel-default" style="border: 1px solid @ViewBag.corBordaCamada[contadorCamada]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                    <div class="panel-heading" style="background-color: @ViewBag.corFundoCamada[contadorCamada]">
                                         <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#camada-@objCamada.Id">@objCamada.Nome | <span title="Objetivos"><i class="fa fa-tag"></i> @ViewBag.colObjetivoFinanceiro.Count</span> | <span title="Planos"><i class="fa fa-tag"></i> @ViewBag.colPlanosFinanceiro.Count</span> | <span title="Métricas"><i class="fa fa-tag"></i> @ViewBag.colTemplateMetricaFinanceiro.Count</span></a>
-                                            <p style="float: right; font-size: 18px;">@Math.Round(numeroDesempenhoFinanceiro[indice])%</p>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#camada-@objCamada.Id">@objCamada.Nome | <span title="Objetivos"><i class="fa fa-tag"></i> @colObjetivo.Where(o => o.LkpPerspectiva == objCamada.Id).Count()</span> | <span title="Planos"><i class="fa fa-tag"></i> @colPlanoAcaoCamada.Where(pa => pa.LkpPerspectiva == objCamada.Id).Count() </span> | <span title="Métricas"><i class="fa fa-tag"></i> @colTemplateMetrica.Where(m => m.getPerspectiva() == objCamada.Id).Count()</span></a>
+                                            <p style="float: right; font-size: 18px;">@Math.Round(ViewBag.listaDesempenhoCamada[contadorCamada])%</p>
                                         </h5>
                                     </div>
                                     <div id="camada-@objCamada.Id" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             @foreach (var objetivo in colObjetivo.Where(o => o.LkpPerspectiva == objCamada.Id))
                                             {
-                                                <div class="panel panel-default mb-2" style="border: 1px solid @ViewBag.coresBordaFinanceiro[indice]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-                                                    <div class="panel-heading" style="background-color: @ViewBag.coresFundoFinanceiro[indice]">
+                                                <div class="panel panel-default mb-2" style="border: 1px solid #fff; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+                                                    <div class="panel-heading" style="background-color: #fff">
                                                         <h5 class="panel-title" style="margin: 0">
-                                                            <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#objetivo-@objetivo.Id">@objetivo.Descricao | <span title="Métricas"><i class="fa fa-tag"></i> @colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id).Count()</span></a>
-                                                            <p style="float: right; font-size: 18px;">@Math.Round(numeroDesempenhoFinanceiro[indice])%</p>
+                                                            <a style="width: 100%" data-toggle="collapse" data-parent="#accordion" href="#objetivo-@objetivo.Id">@objetivo.Descricao | <span title="Métricas"><i class="fa fa-tag"></i> @colTemplateMetrica.Where(m => m.LkpObjetivo == objetivo.Id).Count()</span></a>
+                                                            <p style="float: right; font-size: 18px;">-1%</p>
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -187,7 +187,7 @@
                                                                             <div class="col-12">
                                                                                 <h5 class="m-b-xs">Desempenho</h5>
                                                                                 <h1 class="no-margins text-navy"></h1>
-                                                                                <div class="font-bold" style="color: #00b894">@Math.Round(numeroDesempenhoFinanceiro[indice])% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
+                                                                                <div class="font-bold" style="color: #00b894">-1% <i class="fa fa-play fa-rotate-270 fa-1x"></i></div>
                                                                             </div>
                                                                         </div>
                                                                         <table class="table small m-t-sm">
@@ -210,7 +210,7 @@
                                                             </div>
                                                             <div class="col-9">
                                                                 <div class="row">
-                                                                    @foreach (var item in colTemplateMetricaFinanceiro.Where(m => m.LkpObjetivo == objetivo.Id))
+                                                                    @foreach (var item in colTemplateMetrica.Where(m => m.LkpObjetivo == objetivo.Id))
                                                                     {
                                                                         var objMetrica = colMetrica.Where(m => m.LkpMetrica == item.Id).FirstOrDefault();
                                                                         @if (objMetrica != null)
@@ -221,7 +221,7 @@
                 ],
                 [
                     [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
-                ],@objetivo.Id);">
+                ],listaObjetivo);">
                                                                                     <div class="row m-t-xs text-center">
                                                                                         <div class="col-12">
                                                                                             <h5 class="m-b-xs">@objMetrica.Nome</h5>
@@ -230,7 +230,7 @@
                                                                                                 @objMetrica.Razao% <i class="fa fa-play fa-rotate-270 fa-1x"></i>
                                                                                                 @if (objMetrica.Data == mesPassado)
                                                                                                 {
-                                                                                                    var MetricaPassada = (colTemplateMetricaFinanceiro.Where(m => m.Id == objetivo.Id && m.Data == mesPassado)).FirstOrDefault();
+                                                                                                    var MetricaPassada = (colTemplateMetrica.Where(m => m.Id == objetivo.Id && m.Data == mesPassado)).FirstOrDefault();
                                                                                                     if (MetricaPassada != null)
                                                                                                     {
                                                                                                         double razao = (double)(objMetrica.Razao / MetricaPassada.Razao);
@@ -252,25 +252,21 @@
                                                             <div class="col-lg-12">
                                                                 <div class="flot-chart">
                                                                     <div class="flot-chart-content" id="chart-@objetivo.Id">
-                                                                        <script type="text/javascript">
-                                                                            atualizarGrafico([
-                    [2, 4], [1, 9], [2, 7], [3, 6], [4, 4], [5, 10], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7]
-                ],
-                [
-                    [3, 0], [1, 2], [2, 3], [3, 6], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5]
-                ],@objetivo.Id);
-                                                                        </script>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                indice = indice + 1;
+                                                contadorObjetivo = contadorObjetivo + 1;
+                                                <script>
+    listaObjetivo.push(@objetivo.Id);
+                                                </script>
                                             }
                                         </div>
                                     </div>
                                 </div>
+                                contadorCamada = contadorCamada + 1;
                             }
                         </div>
 
@@ -309,3 +305,4 @@
         <link rel="stylesheet" href="~/lib/dza/style.css" />
     </environment>
 }
+

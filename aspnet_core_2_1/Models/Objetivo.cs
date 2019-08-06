@@ -32,5 +32,9 @@ namespace ASPNET_Core_2_1.Models
         public ICollection<ObjetivoPessoa> ObjetivoPessoa { get; set; }
         public ICollection<PlanoAcao> PlanoAcao { get; set; }
         public ICollection<RelacaoObjetivo> RelacaoObjetivo { get; set; }
+        public int? getPerspectiva()
+        {
+            return LkpPerspectiva;
+        }
     }
 }

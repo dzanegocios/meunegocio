@@ -20,184 +20,85 @@ namespace MEUNEGOCIO.Controllers
         // GET: Objetivoes
         public async Task<IActionResult> Index()
         {
-             ViewBag.objTeste = _context.Metrica.Where(m => m.Id == 10).First();
             var meunegocioContext = _context.Objetivo.Include(o => o.LkpMetricaNavigation).Include(o => o.LkpPerspectivaNavigation).Include(o => o.LkpPessoaNavigation).Include(o => o.LkpResponsavelNavigation);
-            /* Camadas BSC */
-            var bscFinanceiro = _context.Bsc.Where(b => b.Nome == "Financeiro").ToList<Bsc>().First();
-            var bscClientes = _context.Bsc.Where(b => b.Nome == "Clientes").ToList<Bsc>().First();
-            var bscProcessoInterno = _context.Bsc.Where(b => b.Nome == "Processos Internos").ToList<Bsc>().First();
-            var bscAprendizado = _context.Bsc.Where(b => b.Nome == "Aprendizado e Crescimento").ToList<Bsc>().First();
 
-            /* Coleção de planos por camada */
-            var colPlanosFinanceiro = _context.PlanoAcao.Where(p => p.LkpPerspectiva == bscFinanceiro.Id).ToList<PlanoAcao>();
-            var colPlanosClientes = _context.PlanoAcao.Where(p => p.LkpPerspectiva == bscClientes.Id).ToList<PlanoAcao>();
-            var colPlanosProcessoInterno = _context.PlanoAcao.Where(p => p.LkpPerspectiva == bscProcessoInterno.Id).ToList<PlanoAcao>();
-            var colPlanosAprendizado = _context.PlanoAcao.Where(p => p.LkpPerspectiva == bscAprendizado.Id).ToList<PlanoAcao>();
-
-            /* Coleção de objetivos por camada */
-            var colObjetivoFinanceiro = _context.Objetivo.Where(o => o.LkpPerspectiva == bscFinanceiro.Id).ToList<Objetivo>();
-            var colObjetivoClientes = _context.Objetivo.Where(o => o.LkpPerspectiva == bscClientes.Id).ToList<Objetivo>();
-            var colObjetivoProcessoInterno = _context.Objetivo.Where(o => o.LkpPerspectiva == bscProcessoInterno.Id).ToList<Objetivo>();
-            var colObjetivoAprendizado = _context.Objetivo.Where(o => o.LkpPerspectiva == bscAprendizado.Id).ToList<Objetivo>();
-
-            /* Coleção de metricas template por camada */
-            List<Metrica> colTemplateMetricaFinanceiro = new List<Metrica>();
-            int? colFinanceiroMetricaPesoTotal = 0;
-            foreach (var itemObj in colObjetivoFinanceiro)
-            {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
-                {
-                    colFinanceiroMetricaPesoTotal = colFinanceiroMetricaPesoTotal + objMetrica.Peso;
-                    colTemplateMetricaFinanceiro.Add(objMetrica);
-                    
-                }
-            }
-            
-            var colTemplateMetricaClientes = new List<Metrica>();
-            int? colClienteMetricaPesoTotal = 0;
-            foreach (var itemObj in colObjetivoClientes)
-            {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
-                {
-                    colClienteMetricaPesoTotal = colClienteMetricaPesoTotal + objMetrica.Peso;
-                    colTemplateMetricaClientes.Add(objMetrica);
-                }
-            }
-
-            var colTemplateMetricaProcessoInterno = new List<Metrica>();
-            int? colProcessoInternoMetricaPesoTotal = 0;
-            foreach (var itemObj in colObjetivoProcessoInterno)
-            {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
-                {
-                    colProcessoInternoMetricaPesoTotal = colProcessoInternoMetricaPesoTotal + objMetrica.Peso;
-                    colTemplateMetricaProcessoInterno.Add(objMetrica);
-                }
-            }
-
-            var colTemplateMetricaAprendizado = new List<Metrica>();
-            int? colAprendizadoMetricaPesoTotal = 0;
-            foreach (var itemObj in colObjetivoAprendizado)
-            {
-                foreach (var objMetrica in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome != "DESEMPENHO" && m.Template == true).ToList<Metrica>())
-                {
-                    colAprendizadoMetricaPesoTotal = colAprendizadoMetricaPesoTotal + objMetrica.Peso;
-                    colTemplateMetricaAprendizado.Add(objMetrica);
-                }
-            }
-
-            /* Desempenho por camada */
-            var colDesempenhoFinanceiro = new List<Metrica>();
-            List<decimal> numeroDesempenhoFinanceiro = new List<decimal>();
-            foreach (var itemObj in colObjetivoFinanceiro)
-            {
-                foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
-                {
-                    colDesempenhoFinanceiro.Add(objMetricaTemplate);
-                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();    
-                    numeroDesempenhoFinanceiro.Add(objMetrica.Executado);
-                }
-            }
-
-            var colDesempenhoCliente = new List<Metrica>();
-            List<decimal> numeroDesempenhoCliente = new List<decimal>();
-            foreach (var itemObj in colObjetivoClientes)
-            {
-                foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
-                {
-                    colDesempenhoCliente.Add(objMetricaTemplate);
-                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
-                    numeroDesempenhoCliente.Add(objMetrica.Executado);
-                }   
-            }
-
-            var colDesempenhoProcessoInterno = new List<Metrica>();
-            List<decimal> numeroDesempenhoProcessoInterno = new List<decimal>();
-            foreach (var itemObj in colObjetivoProcessoInterno)
-            {
-                foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
-                {
-                    colDesempenhoProcessoInterno.Add(objMetricaTemplate);
-                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
-                    numeroDesempenhoProcessoInterno.Add(objMetrica.Executado);
-                }
-            }
-
-            var colDesempenhoAprendizado = new List<Metrica>();
-            List<decimal> numeroDesempenhoAprendizado = new List<decimal>();
-            foreach (var itemObj in colObjetivoAprendizado)
-            {
-                foreach (var objMetricaTemplate in _context.Metrica.Where(m => m.LkpObjetivo == itemObj.Id && m.Nome == "DESEMPENHO" && m.Template == true).ToList<Metrica>())
-                {
-                    colDesempenhoAprendizado.Add(objMetricaTemplate);
-                    var objMetrica = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
-                    numeroDesempenhoAprendizado.Add(objMetrica.Executado);
-                }
-            }
-
-            /* Cálculo da média ponderada do desempenho financeiro */
-
-            /* Cálculo da média ponderada do desempenho cliente */
-            /* Cálculo da média ponderada do desempenho processo interno */
-            /* Cálculo da média ponderada do desempenho aprendizado */
-            
-            /* Definição das ViewBags Financeiro*/
-            ViewBag.colPlanosFinanceiro = colPlanosFinanceiro;  
-            ViewBag.colObjetivoFinanceiro = colObjetivoFinanceiro;
-            ViewBag.colDesempenhoFinanceiro = colDesempenhoFinanceiro;
-            ViewBag.numeroDesempenhoFinanceiro = numeroDesempenhoFinanceiro;
-            ViewBag.colMediaDesempenhoFinanceiro = numeroDesempenhoFinanceiro.Count > 0 ? Math.Round(numeroDesempenhoFinanceiro.Average()) : 0;
-            ViewBag.colTemplateMetricaFinanceiro = colTemplateMetricaFinanceiro;
-            
-
-            /* Definição das ViewBags Cliente */
-            ViewBag.colPlanosCliente = colPlanosClientes;
-            ViewBag.ObjetivoCliente = colObjetivoClientes;
-            ViewBag.colDesempenhoCliente = colDesempenhoCliente;
-            ViewBag.numeroDesempenhoCliente = numeroDesempenhoCliente;
-            ViewBag.colMediaDesempenhoCliente = numeroDesempenhoCliente.Count > 0 ? Math.Round(numeroDesempenhoCliente.Average()) : 0;
-            ViewBag.colTemplateMetricaCliente = colTemplateMetricaClientes;
-
-            /* Definição das ViewBags Processo Interno */
-            ViewBag.colPlanosProcessoInterno = colPlanosProcessoInterno;
-            ViewBag.ObjetivoProcessoInterno = colObjetivoProcessoInterno;
-            ViewBag.numeroDesempenhoProcessoInterno = numeroDesempenhoProcessoInterno;
-            ViewBag.colMediaDesempenhoProcessoInterno = numeroDesempenhoProcessoInterno.Count > 0 ? Math.Round(numeroDesempenhoProcessoInterno.Average()) : 0;
-            ViewBag.colTemplateMetricaProcessoInterno = colTemplateMetricaProcessoInterno;
-
-            /* Definição das ViewBags Aprendizado */
-            ViewBag.colPlanosAprendizado = colPlanosAprendizado;
-            ViewBag.ObjetivoAprendizado = colObjetivoAprendizado;
-            ViewBag.numeroDesempenhoAprendizado = numeroDesempenhoAprendizado;
-            ViewBag.colMediaDesempenhoAprendizado = numeroDesempenhoAprendizado.Count > 0 ? Math.Round(numeroDesempenhoAprendizado.Average()) : 0;
-            ViewBag.colTemplateMetricaAprendizado = colTemplateMetricaAprendizado;
-
-            /* Miscelania */
-            Metrica objMetricaA = new Metrica();
+            /* INICIO */
             Perfil objPerfil = _context.Perfil.Where(pr => pr.LkpPessoa == _context.Pessoas.Where(ps => ps.Email == "dsilvanicolas@gmail.com").First().Id).First();
-            List<string> coresFundoFinanceiro = new List<string>();
-            List<string> coresBordaFinanceiro = new List<string>();
-            ViewBag.colCamadas = _context.Bsc.Where(b => b.Id != null);
-            ViewBag.colObjetivo = _context.Objetivo.Where(o => o.Id != null);
-            foreach (var numero in numeroDesempenhoFinanceiro)
+            Metrica objMetricaPadrao = new Metrica();
+            var colCamadas = _context.Bsc.Where(b => b.Id != null);
+            int contadorCamada = 0, contadorObjetivo = 0;
+            var colObjetivo = _context.Objetivo.Where(o => o.Id != null);
+            List<decimal> listaDesempenhoCamada = new List<decimal>();
+            List<decimal> listaDesempenhoObjetivo = new List<decimal>();
+            List<String> corFundoCamada = new List<string>();
+            List<String> corBordaCamada = new List<string>();
+            List<String> corFundoObjetivo = new List<string>();
+            List<String> corBordaObjetivo = new List<string>();
+            List<PlanoAcao> colPlanoAcaoCamada = new List<PlanoAcao>();
+            foreach (var camada in _context.Bsc.Where(b => b.Id != null))
             {
-                coresFundoFinanceiro.Add(objMetricaA.corFundo(numero, "Quanto maior melhor", objPerfil.getValoresCor()));
-                coresBordaFinanceiro.Add(objMetricaA.corBorda(numero, "Quanto maior melhor", objPerfil.getValoresCor()));
-            }
-            /* Definição de cores de fundo e borda */
-            ViewData["corFundoFinanceiro"] = objMetricaA.corFundo(numeroDesempenhoFinanceiro.Count > 0 ? numeroDesempenhoFinanceiro.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-            ViewData["corBordaFinanceiro"] = objMetricaA.corBorda(numeroDesempenhoFinanceiro.Count > 0 ? numeroDesempenhoFinanceiro.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-            ViewData["corFundoCliente"] = objMetricaA.corFundo(numeroDesempenhoCliente.Count > 0 ? numeroDesempenhoCliente.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-            ViewData["corBordaCliente"] = objMetricaA.corBorda(numeroDesempenhoCliente.Count > 0 ? numeroDesempenhoCliente.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-            ViewData["corFundoProcesso"] = objMetricaA.corFundo(numeroDesempenhoProcessoInterno.Count > 0 ? numeroDesempenhoProcessoInterno.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-            ViewData["corBordaProcesso"] = objMetricaA.corBorda(numeroDesempenhoProcessoInterno.Count > 0 ? numeroDesempenhoProcessoInterno.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-            ViewData["corFundoAprendizado"] = objMetricaA.corFundo(numeroDesempenhoAprendizado.Count > 0 ? numeroDesempenhoAprendizado.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-            ViewData["corBordaAprendizado"] = objMetricaA.corBorda(numeroDesempenhoAprendizado.Count > 0 ? numeroDesempenhoAprendizado.Average() : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-            ViewBag.coresFundoFinanceiro = coresFundoFinanceiro;
-            ViewBag.coresBordaFinanceiro = coresBordaFinanceiro;
 
-            /* Model View */
+                foreach (var objetivo in colObjetivo.Where(o => o.LkpPerspectiva == camada.Id && o.LkpPessoa == objPerfil.LkpPessoa))
+                {
+                    try
+                    {
+                        var objMetricaTemplate = _context.Metrica.Where(m => m.LkpObjetivo == objetivo.Id && m.Nome == "DESEMPENHO").First();
+                        var objMetricaDesempenho = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
+
+                        /* Inserindo desempenho de cada objetivo em uma lista */
+                        if (objMetricaDesempenho == null)
+                        {
+
+                        }
+                        else
+                        {
+                            listaDesempenhoObjetivo.Add(objMetricaDesempenho.Executado);
+                        }
+
+                        /* Definição de cores de fundo e borda dos objetivos */
+                        var teste = objMetricaPadrao.corFundo(listaDesempenhoObjetivo.Count > 0 ? listaDesempenhoObjetivo[contadorObjetivo] : -1, "Quanto maior melhor", objPerfil.getValoresCor());
+                        corFundoObjetivo.Add(teste);
+                        corBordaObjetivo.Add(objMetricaPadrao.corBorda(listaDesempenhoObjetivo.Count > 0 ? listaDesempenhoObjetivo[contadorObjetivo] : -1, "Quanto maior melhor", objPerfil.getValoresCor()));
+
+                    }
+                    catch
+                    {
+
+                    }
+
+                    contadorObjetivo += 1;
+                }
+                /* Inserindo desempenho de cada camada em uma lista */
+                if (listaDesempenhoObjetivo.Count > 0)
+                {
+                    listaDesempenhoCamada.Add(listaDesempenhoObjetivo.Average());
+                }
+
+                /* Definição de cores de fundo e borda das camadas */
+                corFundoCamada.Add(objMetricaPadrao.corFundo(listaDesempenhoCamada.Count > 0 ? listaDesempenhoCamada[contadorCamada] : -1, "Quanto maior melhor", objPerfil.getValoresCor()));
+                corBordaCamada.Add(objMetricaPadrao.corBorda(listaDesempenhoCamada.Count > 0 ? listaDesempenhoCamada[contadorCamada] : -1, "Quanto maior melhor", objPerfil.getValoresCor()));
+
+                /* Coleção de planos por camada */
+                foreach (var plano in _context.PlanoAcao.Where(p => p.LkpPerspectiva == camada.Id))
+                {
+                    colPlanoAcaoCamada.Add(plano);
+
+                }
+
+                contadorCamada += 1;
+            }
+            /* View Bags */
             ViewBag.colMetrica = _context.Metrica.Where(m => m.LkpMetrica != null).ToList<Metrica>();
+            ViewBag.listaDesempenhoCamada = listaDesempenhoCamada;
+            ViewBag.listaDesempenhoObjetivo = listaDesempenhoObjetivo;
+            ViewBag.colTemplateMetrica = _context.Metrica.Where(m => m.Template == true && m.LkpPessoa == objPerfil.LkpPessoa);
+            ViewBag.colObjetivo = colObjetivo;
+            ViewBag.colCamadas = colCamadas;
+            ViewBag.corBordaCamada = corBordaCamada;
+            ViewBag.corFundoCamada = corFundoCamada;
+            ViewBag.corBordaObjetivo = corBordaObjetivo;
+            ViewBag.corFundoObjetivo = corFundoObjetivo;
+            ViewBag.colPlanoAcaoCamada = colPlanoAcaoCamada;
             return View(await meunegocioContext.ToListAsync());
         }
         // GET: Objetivoes/Details/5
