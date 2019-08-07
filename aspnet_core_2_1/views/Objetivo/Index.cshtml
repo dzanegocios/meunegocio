@@ -27,8 +27,22 @@
     {
         colPlanoAcaoCamada.Add(plano);
     }
+
+    var mapQtdTemplateMetrica = new Dictionary<string, int>();
+    foreach (var camada in ViewBag.colCamadas)
+    {
+        int contadorTemplate = 0;
+        foreach(var objetivo in colObjetivo.Where(o => o.LkpPerspectiva == camada.Id))
+        {
+            foreach (var templateMetrica in colTemplateMetrica.Where(tm => tm.LkpObjetivo == objetivo.Id))
+            {
+                contadorTemplate += 1;
+            }
+        }
+        mapQtdTemplateMetrica.Add(camada.Nome, contadorTemplate);
+    }
     var mesPassado = DateTime.Today;
-        
+
     int contadorCamada = 0, contadorObjetivo = 0;
 
 }
@@ -161,7 +175,7 @@
                                 <div class="panel panel-default" style="border: 1px solid @ViewBag.corBordaCamada[contadorCamada]; border-bottom: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
                                     <div class="panel-heading" style="background-color: @ViewBag.corFundoCamada[contadorCamada]">
                                         <h5 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#camada-@objCamada.Id">@objCamada.Nome | <span title="Objetivos"><i class="fa fa-tag"></i> @colObjetivo.Where(o => o.LkpPerspectiva == objCamada.Id).Count()</span> | <span title="Planos"><i class="fa fa-tag"></i> @colPlanoAcaoCamada.Where(pa => pa.LkpPerspectiva == objCamada.Id).Count() </span> | <span title="Métricas"><i class="fa fa-tag"></i> @colTemplateMetrica.Where(m => m.getPerspectiva() == objCamada.Id).Count()</span></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#camada-@objCamada.Id">@objCamada.Nome | <span title="Objetivos"><i class="fa fa-tag"></i> @colObjetivo.Where(o => o.LkpPerspectiva == objCamada.Id).Count()</span> | <span title="Planos"><i class="fa fa-tag"></i> @colPlanoAcaoCamada.Where(pa => pa.LkpPerspectiva == objCamada.Id).Count() </span> | <span title="Métricas"><i class="fa fa-tag"></i> @mapQtdTemplateMetrica[objCamada.Nome]</span></a>
                                             <p style="float: right; font-size: 18px;">@Math.Round(ViewBag.listaDesempenhoCamada[contadorCamada])%</p>
                                         </h5>
                                     </div>

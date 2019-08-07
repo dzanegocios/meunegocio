@@ -37,7 +37,7 @@ namespace MEUNEGOCIO.Controllers
             List<PlanoAcao> colPlanoAcaoCamada = new List<PlanoAcao>();
             foreach (var camada in _context.Bsc.Where(b => b.Id != null))
             {
-
+                listaDesempenhoObjetivo = null;
                 foreach (var objetivo in colObjetivo.Where(o => o.LkpPerspectiva == camada.Id && o.LkpPessoa == objPerfil.LkpPessoa))
                 {
                     try
@@ -69,7 +69,7 @@ namespace MEUNEGOCIO.Controllers
                     contadorObjetivo += 1;
                 }
                 /* Inserindo desempenho de cada camada em uma lista */
-                if (listaDesempenhoObjetivo.Count > 0)
+                if (listaDesempenhoObjetivo != null)
                 {
                     listaDesempenhoCamada.Add(listaDesempenhoObjetivo.Average());
                 }
