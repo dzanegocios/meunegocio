@@ -30,6 +30,7 @@ namespace MEUNEGOCIO.Controllers
             var colObjetivo = _context.Objetivo.Where(o => o.Id != null);
             List<decimal> listaDesempenhoCamada = new List<decimal>();
             List<decimal> listaDesempenhoObjetivo = new List<decimal>();
+            List<decimal> listaAuxiliarDesempenhoObjetivo = new List<decimal>();
             List<String> corFundoCamada = new List<string>();
             List<String> corBordaCamada = new List<string>();
             List<String> corFundoObjetivo = new List<string>();
@@ -37,7 +38,8 @@ namespace MEUNEGOCIO.Controllers
             List<PlanoAcao> colPlanoAcaoCamada = new List<PlanoAcao>();
             foreach (var camada in _context.Bsc.Where(b => b.Id != null))
             {
-                listaDesempenhoObjetivo = null;
+                listaAuxiliarDesempenhoObjetivo = new List<decimal>();
+
                 foreach (var objetivo in colObjetivo.Where(o => o.LkpPerspectiva == camada.Id && o.LkpPessoa == objPerfil.LkpPessoa))
                 {
                     try
@@ -46,34 +48,36 @@ namespace MEUNEGOCIO.Controllers
                         var objMetricaDesempenho = _context.Metrica.Where(m => m.LkpMetrica == objMetricaTemplate.Id).First();
 
                         /* Inserindo desempenho de cada objetivo em uma lista */
-                        if (objMetricaDesempenho == null)
-                        {
-
-                        }
-                        else
-                        {
-                            listaDesempenhoObjetivo.Add(objMetricaDesempenho.Executado);
-                        }
+                        listaDesempenhoObjetivo.Add(objMetricaDesempenho.Executado);
+                        listaAuxiliarDesempenhoObjetivo.Add(objMetricaDesempenho.Executado);
 
                         /* Definição de cores de fundo e borda dos objetivos */
-                        var teste = objMetricaPadrao.corFundo(listaDesempenhoObjetivo.Count > 0 ? listaDesempenhoObjetivo[contadorObjetivo] : -1, "Quanto maior melhor", objPerfil.getValoresCor());
-                        corFundoObjetivo.Add(teste);
+                        corFundoObjetivo.Add(objMetricaPadrao.corFundo(listaDesempenhoObjetivo.Count > 0 ? listaDesempenhoObjetivo[contadorObjetivo] : -1, "Quanto maior melhor", objPerfil.getValoresCor()));
                         corBordaObjetivo.Add(objMetricaPadrao.corBorda(listaDesempenhoObjetivo.Count > 0 ? listaDesempenhoObjetivo[contadorObjetivo] : -1, "Quanto maior melhor", objPerfil.getValoresCor()));
 
                     }
                     catch
                     {
+                        listaDesempenhoObjetivo.Add(-1);
+                        listaAuxiliarDesempenhoObjetivo.Add(-1);
+
+                        /* Definição de cores de fundo e borda dos objetivos */
+                        corFundoObjetivo.Add(objMetricaPadrao.corFundo(-1, "Quanto maior melhor", objPerfil.getValoresCor()));
+                        corBordaObjetivo.Add(objMetricaPadrao.corBorda(-1, "Quanto maior melhor", objPerfil.getValoresCor()));
 
                     }
 
                     contadorObjetivo += 1;
                 }
                 /* Inserindo desempenho de cada camada em uma lista */
-                if (listaDesempenhoObjetivo != null)
+                if (listaAuxiliarDesempenhoObjetivo.Count() > 0)
                 {
-                    listaDesempenhoCamada.Add(listaDesempenhoObjetivo.Average());
+                    listaDesempenhoCamada.Add(listaAuxiliarDesempenhoObjetivo.Average());
                 }
-
+                else
+                {
+                    listaDesempenhoCamada.Add(-1);
+                }
                 /* Definição de cores de fundo e borda das camadas */
                 corFundoCamada.Add(objMetricaPadrao.corFundo(listaDesempenhoCamada.Count > 0 ? listaDesempenhoCamada[contadorCamada] : -1, "Quanto maior melhor", objPerfil.getValoresCor()));
                 corBordaCamada.Add(objMetricaPadrao.corBorda(listaDesempenhoCamada.Count > 0 ? listaDesempenhoCamada[contadorCamada] : -1, "Quanto maior melhor", objPerfil.getValoresCor()));
@@ -84,14 +88,14 @@ namespace MEUNEGOCIO.Controllers
                     colPlanoAcaoCamada.Add(plano);
 
                 }
-
+                
                 contadorCamada += 1;
             }
             /* View Bags */
             ViewBag.colMetrica = _context.Metrica.Where(m => m.LkpMetrica != null).ToList<Metrica>();
             ViewBag.listaDesempenhoCamada = listaDesempenhoCamada;
             ViewBag.listaDesempenhoObjetivo = listaDesempenhoObjetivo;
-            ViewBag.colTemplateMetrica = _context.Metrica.Where(m => m.Template == true && m.LkpPessoa == objPerfil.LkpPessoa);
+            ViewBag.colTemplateMetrica = _context.Metrica.Where(m => m.Template == true && m.LkpPessoa == objPerfil.LkpPessoa && m.Nome != "DESEMPENHO");
             ViewBag.colObjetivo = colObjetivo;
             ViewBag.colCamadas = colCamadas;
             ViewBag.corBordaCamada = corBordaCamada;

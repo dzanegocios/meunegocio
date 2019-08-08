@@ -124,7 +124,7 @@ namespace ASPNET_Core_2_1.Models
             }
             if (razao == -1)
             {
-                corFundo = "#5b6c7c";
+                corFundo = "#b2bec3";
             }
             return corFundo;
         }
@@ -173,7 +173,7 @@ namespace ASPNET_Core_2_1.Models
             }
             if (razao == -1)
             {
-                corFundo = "#5b6c7c";
+                corFundo = "#636e72";
             }
             return corFundo;
         }
